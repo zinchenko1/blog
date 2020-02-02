@@ -1,0 +1,38 @@
+easy_admin:
+    site_name: 'MEGA <strong style="font-size: 80%;">Blog</strong>'
+    user:
+        display_name: true
+        display_avatar: false
+        name_property_path: 'firstName'
+    list:
+        max_results: 10
+    entities:
+        # List the entity class name you want to manage
+#        - App\Entity\Post
+#        - App\Entity\Category
+#        - App\Entity\Tag
+#        - App\Entity\User\User
+#        - App\Entity\User\Admin
+#        - App\Entity\User\Author
+#        - App\Entity\User\Commentator
+        Category:
+            class: App\Entity\Category
+            label: 'Category'
+            form:  # <-- 'form' is applied to both 'new' and 'edit' views
+                fields:
+                    - 'title'
+            list:
+                title: "Categories"
+            search:
+                # use an array to also define the sorting direction
+                sort: ['createdAt', 'ASC']
+        Tag:
+            class: App\Entity\Tag
+            label: 'Tag'
+            form:
+                fields:
+                    - 'name'
+            list:
+                title: "Tags"
+            search:
+                sort: ['createdAt', 'ASC']

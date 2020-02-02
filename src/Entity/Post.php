@@ -171,7 +171,7 @@ class Post
         return $this;
     }
 
-    public function getCreatedAt(): DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -183,7 +183,7 @@ class Post
         return $this;
     }
 
-    public function getModifiedAt(): DateTimeInterface
+    public function getModifiedAt(): ?DateTimeInterface
     {
         return $this->modifiedAt;
     }

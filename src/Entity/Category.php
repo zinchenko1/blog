@@ -99,7 +99,7 @@ class Category
         $this->posts->removeElement($post);
     }
 
-    public function getCreatedAt(): DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
