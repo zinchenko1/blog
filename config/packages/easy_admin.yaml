@@ -8,17 +8,29 @@ easy_admin:
         max_results: 10
     entities:
         # List the entity class name you want to manage
-#        - App\Entity\Post
-#        - App\Entity\Category
-#        - App\Entity\Tag
 #        - App\Entity\User\User
 #        - App\Entity\User\Admin
 #        - App\Entity\User\Author
 #        - App\Entity\User\Commentator
+        Post:
+            class: App\Entity\Post
+            label: 'Post'
+            form:
+                fields:
+                    - 'title'
+                    - { property: 'category', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Category'}}
+                    - { property: 'tags', type_options: { expanded: true, multiple: true } }
+                    - { property: 'description', type: 'text_editor' }
+                    - { property: 'body', type: 'text_editor' }
+                    - { property: 'status', type: 'choice', type_options: { choices: !php/const App\Entity\Post::STATUSES }}
+            list:
+                title: "Posts"
+            search:
+                sort: ['createdAt', 'ASC']
         Category:
             class: App\Entity\Category
             label: 'Category'
-            form:  # <-- 'form' is applied to both 'new' and 'edit' views
+            form:
                 fields:
                     - 'title'
             list:
