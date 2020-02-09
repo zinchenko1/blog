@@ -21,6 +21,14 @@ class Post
     public const STATUS_CLOSED = 4;
     public const STATUS_ARCHIVED = 5;
 
+    public const STATUS_OPTIONS = [
+        self::STATUS_DRAFT,
+        self::STATUS_REVIEW,
+        self::STATUS_ACTIVE,
+        self::STATUS_CLOSED,
+        self::STATUS_ARCHIVED,
+    ];
+
     public const STATUSES = [
         'Draft' => self::STATUS_DRAFT,
         'Review' => self::STATUS_REVIEW,

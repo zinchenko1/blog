@@ -1,0 +1,55 @@
+App\Entity\Tag:
+    tag_{1..25}:
+        name: '<word()>'
+
+App\Entity\Category:
+    category_1:
+        title: 'Blogging'
+    category_2:
+        title: 'Freelancing'
+    category_3:
+        title: 'How to Succeed'
+    category_4:
+        title: 'Income Reports'
+    category_5:
+        title: 'Internet Marketing'
+    category_6:
+        title: 'Miscellaneous'
+    category_7:
+        title: 'Quitting Your Job'
+    category_8:
+        title: 'Search Engine Optimization'
+    category_9:
+        title: 'Social Media'
+
+App\Entity\User\User:
+    user (template):
+        firstName: '<firstName()>'
+        lastName: '<lastName()>'
+        status: '<getUserStatusActive()>'
+
+App\Entity\User\Admin:
+    admin_1 (extends user):
+        email: 'admin@blog.loc'
+        password: "<encodePassword(@self, 'test')>"
+
+App\Entity\User\Author:
+    author_1 (extends user):
+        email: 'author@blog.log'
+        password: "<encodePassword(@self, 'test')>"
+    author_2 (extends user):
+        email: 'author2@blog.log'
+        password: "<encodePassword(@self, 'test')>"
+    author_{3..25} (extends user):
+        email (unique): '<email()>'
+        password: "<encodePassword(@self, 'test')>"
+
+App\Entity\Post:
+    post_{1..100}:
+        title: '<word()>'
+        description: '<text(256)>'
+        body: '<text(1024)>'
+        status: '<getRandomPostStatus()>'
+        category: '@category_<numberBetween(1,9)>'
+        tags: '<numberBetween(1, 5)>x @tag_*'
+        author: '@author_<numberBetween(1,25)>'
