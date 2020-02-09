@@ -15,10 +15,18 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Post
 {
-    public const STATUS = [
-        'DRAFT' => 1,
-        'REVIEW' => 2,
-        'PUBLISH' => 3,
+    public const STATUS_DRAFT = 1;
+    public const STATUS_REVIEW = 2;
+    public const STATUS_ACTIVE = 3;
+    public const STATUS_CLOSED = 4;
+    public const STATUS_ARCHIVED = 5;
+
+    public const STATUSES = [
+        'Draft' => self::STATUS_DRAFT,
+        'Review' => self::STATUS_REVIEW,
+        'Active' => self::STATUS_ACTIVE,
+        'Closed' => self::STATUS_CLOSED,
+        'Archived' => self::STATUS_ARCHIVED,
     ];
 
     /**
@@ -94,6 +102,11 @@ class Post
         $this->tags = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return (string) $this->title;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -147,12 +160,12 @@ class Post
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function setCategory(string $category): self
+    public function setCategory(Category $category): self
     {
         $this->category = $category;
 
@@ -171,7 +184,7 @@ class Post
         return $this;
     }
 
-    public function getCreatedAt(): DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -183,7 +196,7 @@ class Post
         return $this;
     }
 
-    public function getModifiedAt(): DateTimeInterface
+    public function getModifiedAt(): ?DateTimeInterface
     {
         return $this->modifiedAt;
     }

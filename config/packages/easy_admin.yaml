@@ -1,0 +1,67 @@
+easy_admin:
+    site_name: 'MEGA <strong style="font-size: 80%;">Blog</strong>'
+    user:
+        display_name: true
+        display_avatar: false
+        name_property_path: 'firstName'
+    list:
+        max_results: 10
+    entities:
+        Post:
+            class: App\Entity\Post
+            label: 'Post'
+            form:
+                fields:
+                    - 'title'
+                    - { property: 'category', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Category'}}
+                    - { property: 'tags', type_options: { expanded: true, multiple: true } }
+                    - { property: 'description', type: 'text_editor' }
+                    - { property: 'body', type: 'text_editor' }
+                    - { property: 'status', type: 'choice', type_options: { choices: !php/const App\Entity\Post::STATUSES }}
+            list:
+                title: "Posts"
+            search:
+                sort: ['createdAt', 'ASC']
+        Category:
+            class: App\Entity\Category
+            label: 'Category'
+            form:
+                fields:
+                    - 'title'
+            list:
+                title: "Categories"
+            search:
+                # use an array to also define the sorting direction
+                sort: ['createdAt', 'ASC']
+        Tag:
+            class: App\Entity\Tag
+            label: 'Tag'
+            form:
+                fields:
+                    - 'name'
+            list:
+                title: "Tags"
+            search:
+                sort: ['createdAt', 'ASC']
+        Author:
+            class: App\Entity\User\Author
+            disabled_actions: []
+            list:
+                title: "Authors"
+            form:
+                fields:
+                    - 'firstName'
+                    - 'lastName'
+                    - 'email'
+                    - { property: 'status', type: 'choice', type_options: { choices: !php/const App\Entity\User\User::STATUSES }}
+        Admin:
+            class: App\Entity\User\Admin
+            disabled_actions: []
+            list:
+                title: "Admin"
+            form:
+                fields:
+                    - 'firstName'
+                    - 'lastName'
+                    - 'email'
+                    - { property: 'status', type: 'choice', type_options: { choices: !php/const App\Entity\User\User::STATUSES }}

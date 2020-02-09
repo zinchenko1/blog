@@ -20,6 +20,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 abstract class User implements UserInterface
 {
+    public const STATUS_ACTIVE = 1;
+    public const STATUS_INACTIVE = 2;
+    public const STATUS_BLOCKED = 0;
+
+    public const STATUSES = [
+        'Active' => self::STATUS_ACTIVE,
+        'Inactive' => self::STATUS_INACTIVE,
+        'Blocked' => self::STATUS_BLOCKED,
+    ];
+
     public const ROLES = [
         'admin' => 'ROLE_ADMIN',
         'author' => 'ROLE_AUTHOR',
@@ -49,9 +59,9 @@ abstract class User implements UserInterface
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="json")
      */
-    private $roles;
+    private $roles = [];
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -114,12 +124,15 @@ abstract class User implements UserInterface
         return $this;
     }
 
-    public function getRoles(): ?string
+    public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function setRoles(string $roles): self
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
