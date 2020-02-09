@@ -102,6 +102,11 @@ class Post
         $this->tags = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return (string) $this->title;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

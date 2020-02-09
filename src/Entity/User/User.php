@@ -20,6 +20,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 abstract class User implements UserInterface
 {
+    public const STATUS_ACTIVE = 1;
+    public const STATUS_INACTIVE = 2;
+    public const STATUS_BLOCKED = 0;
+
+    public const STATUSES = [
+        'Active' => self::STATUS_ACTIVE,
+        'Inactive' => self::STATUS_INACTIVE,
+        'Blocked' => self::STATUS_BLOCKED,
+    ];
+
     public const ROLES = [
         'admin' => 'ROLE_ADMIN',
         'author' => 'ROLE_AUTHOR',

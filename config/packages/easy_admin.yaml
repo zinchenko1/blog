@@ -7,11 +7,6 @@ easy_admin:
     list:
         max_results: 10
     entities:
-        # List the entity class name you want to manage
-#        - App\Entity\User\User
-#        - App\Entity\User\Admin
-#        - App\Entity\User\Author
-#        - App\Entity\User\Commentator
         Post:
             class: App\Entity\Post
             label: 'Post'
@@ -48,3 +43,25 @@ easy_admin:
                 title: "Tags"
             search:
                 sort: ['createdAt', 'ASC']
+        Author:
+            class: App\Entity\User\Author
+            disabled_actions: []
+            list:
+                title: "Authors"
+            form:
+                fields:
+                    - 'firstName'
+                    - 'lastName'
+                    - 'email'
+                    - { property: 'status', type: 'choice', type_options: { choices: !php/const App\Entity\User\User::STATUSES }}
+        Admin:
+            class: App\Entity\User\Admin
+            disabled_actions: []
+            list:
+                title: "Admin"
+            form:
+                fields:
+                    - 'firstName'
+                    - 'lastName'
+                    - 'email'
+                    - { property: 'status', type: 'choice', type_options: { choices: !php/const App\Entity\User\User::STATUSES }}
