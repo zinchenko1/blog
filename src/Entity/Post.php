@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
@@ -41,26 +42,31 @@ class Post
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"post:show"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"post:show"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"post:show"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"post:show"})
      */
     private $body;
 
     /**
      * @ORM\Column(type="smallint")
+     * @Groups({"post:show"})
      */
     private $status;
 
@@ -72,6 +78,7 @@ class Post
     /**
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(type="string", length=255)
+     * @Groups({"post:show"})
      */
     private $slug;
 
@@ -79,6 +86,7 @@ class Post
      * @var DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Groups({"post:show"})
      */
     private $createdAt;
 
@@ -86,6 +94,7 @@ class Post
      * @var DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
+     * @Groups({"post:show"})
      */
     private $modifiedAt;
 
