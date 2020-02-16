@@ -9,6 +9,9 @@ use FOS\RestBundle\Controller\Annotations as FOSRest;
 use HttpException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use Swagger\Annotations as SWG;
 
 class PostController extends AbstractFOSRestController
 {
@@ -33,10 +36,22 @@ class PostController extends AbstractFOSRestController
     }
 
     /**
+     * Return post by ID.
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Return Post by ID",
+     *     @Model(type=Post::class, groups={"post:show"})
+     * )
+     * @SWG\Tag(name="posts")
+     * @Security(name="Post")
+     *
      * @FOSRest\Get("/posts/{id}")
-     * @param mixed $id
+     * @param int $id
+     * @return Response
+     * @throws HttpException
      */
-    public function getPost($id)
+    public function getPost($id): Response
     {
         if (!$id) {
             throw new HttpException(400, 'Invalid id');
@@ -47,17 +62,31 @@ class PostController extends AbstractFOSRestController
             throw new HttpException(400, 'Invalid data');
         }
 
-        return $this->createApiResponse(['data' => $post], ['groups' => 'post:show']);
+        return $this->createApiResponse([
+            'data' => $post], ['groups' => ['post:show']
+        ]);
     }
 
     /**
+     * Return all posts.
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Return all posts",
+     *     @Model(type=Post::class, groups={"post:show"})
+     * )
+     * @SWG\Tag(name="posts")
+     * @Security(name="Post")
+     *
      * @FOSRest\Get("/posts")
      */
-    public function getPosts()
+    public function getPosts(): Response
     {
         $posts = $this->registry->getRepository(Post::class)->findAll();
 
-        return $this->createApiResponse(['data' => $posts], ['groups' => 'post:show']);
+        return $this->createApiResponse([
+            'data' => $posts], ['groups' => ['post:show']
+        ]);
     }
 
     protected function createApiResponse($data, array $context = [], $statusCode = 200): Response

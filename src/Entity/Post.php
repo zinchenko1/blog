@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -43,35 +45,42 @@ class Post
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups({"post:show"})
+     * @SWG\Property(description="The unique identifier of the post.")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"post:show"})
+     * @SWG\Property(description="The title of the post.")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * @Groups({"post:show"})
+     * @SWG\Property(description="The description of the post.")
      */
     private $description;
 
     /**
      * @ORM\Column(type="text")
      * @Groups({"post:show"})
+     * @SWG\Property(description="The content of the post.")
      */
     private $body;
 
     /**
      * @ORM\Column(type="smallint")
      * @Groups({"post:show"})
+     * @SWG\Property(description="The status of the post.")
      */
     private $status;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="posts")
+     * @Groups({"post:show"})
+     * @SWG\Property(ref=@Model(type=Category::class))
      */
     private $category;
 
@@ -79,6 +88,7 @@ class Post
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(type="string", length=255)
      * @Groups({"post:show"})
+     * @SWG\Property(description="Post slug.")
      */
     private $slug;
 
@@ -87,6 +97,7 @@ class Post
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      * @Groups({"post:show"})
+     * @SWG\Property(description="Creating data.")
      */
     private $createdAt;
 
@@ -95,6 +106,7 @@ class Post
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      * @Groups({"post:show"})
+     * @SWG\Property(description="Modifying data.")
      */
     private $modifiedAt;
 
@@ -105,11 +117,15 @@ class Post
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="posts", cascade={"persist", "remove"})
+     * @Groups({"post:show"})
+     * @SWG\Property(ref=@Model(type=Tag::class))
      */
     private $tags;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User\Author", inversedBy="posts")
+     * @Groups({"post:show"})
+     * @SWG\Property(ref=@Model(type=Author::class))
      */
     private $author;
 
