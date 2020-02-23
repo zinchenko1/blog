@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Controller\Rest;
+namespace App\Controller\Api;
 
 use App\Entity\Post;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use HttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -44,26 +46,44 @@ class PostController extends AbstractFOSRestController
      *     @Model(type=Post::class, groups={"post:show"})
      * )
      * @SWG\Tag(name="posts")
-     * @Security(name="Post")
+     * @Security(name="Bearer")
      *
-     * @FOSRest\Get("/posts/{id}")
-     * @param int $id
-     * @return Response
-     * @throws HttpException
+     * @FOSRest\Get("/posts/{id<\d+>}")
+     * @param Post $post
+     * @return response
+     * @ParamConverter("post", class="App:Post")
      */
-    public function getPost($id): Response
+    public function getPost($post): Response
     {
-        if (!$id) {
-            throw new HttpException(400, 'Invalid id');
-        }
-        $post = $this->registry->getRepository(Post::class)->find($id);
-
-        if (!$post) {
-            throw new HttpException(400, 'Invalid data');
-        }
-
         return $this->createApiResponse([
             'data' => $post], ['groups' => ['post:show']
+        ]);
+    }
+
+    /**
+     * Delete post by ID.
+     *
+     * @SWG\Response(
+     *     response=204,
+     *     description="Delete Post by ID",
+     * )
+     * @SWG\Tag(name="posts")
+     * @Security(name="Bearer")
+     *
+     * @FOSRest\Delete("/posts/{id<\d+>}")
+     * @param Post $post
+     * @ParamConverter("post", class="App:Post")
+     * @return Response
+     */
+    public function deletePost(Post $post): Response
+    {
+        $post->getTags()->clear();
+        $post->getComments()->clear();
+        $this->registry->getManager()->remove($post);
+        $this->registry->getManager()->flush();
+
+        return new Response('', Response::HTTP_NO_CONTENT, [
+            'Content-Type' => 'application/json',
         ]);
     }
 
@@ -76,7 +96,7 @@ class PostController extends AbstractFOSRestController
      *     @Model(type=Post::class, groups={"post:show"})
      * )
      * @SWG\Tag(name="posts")
-     * @Security(name="Post")
+     * @Security(name="Bearer")
      *
      * @FOSRest\Get("/posts")
      */
