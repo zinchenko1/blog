@@ -5,8 +5,10 @@ namespace App\Entity\User;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Swagger\Annotations as SWG;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -41,21 +43,29 @@ abstract class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"post:show"})
+     * @SWG\Property(description="The unique identifier of the user.")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180)
+     * @Groups({"post:show"})
+     * @SWG\Property(description="User email.")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"post:show"})
+     * @SWG\Property(description="User first name.")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"post:show"})
+     * @SWG\Property(description="User last name.")
      */
     private $lastName;
 
@@ -197,7 +207,7 @@ abstract class User implements UserInterface
      */
     public function getUsername()
     {
-        // TODO: Implement getUsername() method.
+        return $this->email;
     }
 
     /**
