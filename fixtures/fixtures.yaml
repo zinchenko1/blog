@@ -51,5 +51,12 @@ App\Entity\Post:
         body: '<text(1024)>'
         status: '<getRandomPostStatus()>'
         category: '@category_<numberBetween(1,9)>'
-        tags: '<numberBetween(1, 5)>x @tag_*'
+        tags: '<numberBetween(1, 25)>x @tag_*'
         author: '@author_<numberBetween(1,25)>'
+
+App\Entity\Comment:
+    comment_{1..200}:
+        title: '<word()>'
+        body: '<text(512)>'
+        author: '<getAuthorNotSet()>'
+        post: '@post_<numberBetween(1,100)>'

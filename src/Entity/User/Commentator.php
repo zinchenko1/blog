@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Commentator extends User
 {
+    public const NOT_SET = null;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author")
      */

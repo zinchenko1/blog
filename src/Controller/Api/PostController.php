@@ -4,18 +4,16 @@ namespace App\Controller\Api;
 
 use App\Entity\Post;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use HttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 
-class PostController extends AbstractFOSRestController
+class PostController extends ApiController
 {
     /**
      * @var ManagerRegistry
@@ -23,22 +21,19 @@ class PostController extends AbstractFOSRestController
     private $registry;
 
     /**
-     * @var SerializerInterface
-     */
-    private $serializer;
-
-    /**
      * PostController constructor.
      * @param ManagerRegistry $registry
+     * @param SerializerInterface $serializer
      */
     public function __construct(ManagerRegistry $registry, SerializerInterface $serializer)
     {
+        parent::__construct($serializer);
         $this->registry = $registry;
-        $this->serializer = $serializer;
     }
 
     /**
      * Return post by ID.
+     * @FOSRest\Get("/posts/{id<\d+>}")
      *
      * @SWG\Response(
      *     response=200,
@@ -48,20 +43,20 @@ class PostController extends AbstractFOSRestController
      * @SWG\Tag(name="posts")
      * @Security(name="Bearer")
      *
-     * @FOSRest\Get("/posts/{id<\d+>}")
      * @param Post $post
      * @return response
      * @ParamConverter("post", class="App:Post")
      */
     public function getPost($post): Response
     {
-        return $this->createApiResponse([
-            'data' => $post], ['groups' => ['post:show']
-        ]);
+        return $this->createApiResponse(
+            ['data' => $post], ['groups' => ['post:show']]
+        );
     }
 
     /**
      * Delete post by ID.
+     * @FOSRest\Delete("/posts/{id<\d+>}")
      *
      * @SWG\Response(
      *     response=204,
@@ -69,8 +64,6 @@ class PostController extends AbstractFOSRestController
      * )
      * @SWG\Tag(name="posts")
      * @Security(name="Bearer")
-     *
-     * @FOSRest\Delete("/posts/{id<\d+>}")
      * @param Post $post
      * @ParamConverter("post", class="App:Post")
      * @return Response
@@ -89,6 +82,7 @@ class PostController extends AbstractFOSRestController
 
     /**
      * Return all posts.
+     * @FOSRest\Get("/posts")
      *
      * @SWG\Response(
      *     response=200,
@@ -97,30 +91,63 @@ class PostController extends AbstractFOSRestController
      * )
      * @SWG\Tag(name="posts")
      * @Security(name="Bearer")
-     *
-     * @FOSRest\Get("/posts")
      */
     public function getPosts(): Response
     {
         $posts = $this->registry->getRepository(Post::class)->findAll();
 
-        return $this->createApiResponse([
-            'data' => $posts], ['groups' => ['post:show']
-        ]);
-    }
-
-    protected function createApiResponse($data, array $context = [], $statusCode = 200): Response
-    {
-        $json = $this->serialize($data, $context);
-        return new Response(
-            $json, $statusCode, [
-                'Content-Type' => 'application/json',
-            ]
+        return $this->createApiResponse(
+            ['data' => $posts], ['groups' => ['post:show']]
         );
     }
 
-    protected function serialize($data, $context, $format = 'json'): string
+    /**
+     * Return List Comments.
+     *
+     * @FOSRest\Get(path="/{post}/comments", name="api_post_comments")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Success"
+     * ),
+     * @SWG\Tag(name="posts")
+     * @Security(name="Bearer")
+     * @param Post $post
+     * @throws HttpException
+     * @return Response
+     * @ParamConverter("post", class="App:Post")
+     */
+    public function getComments(Post $post): Response
     {
-        return $this->serializer->serialize($data, $format, $context);
+        $comments = $post->getComments();
+        if (!$comments) {
+            throw new HttpException(400, 'Comments not found');
+        }
+
+        return $this->createApiResponse(['data' => $comments], ['groups' => ['comment:show']]);
+    }
+
+    /**
+     * Return List Tags.
+     *
+     * @FOSRest\Get(path="/{post}/tags", name="api_post_tags")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Return Tags list by Post ID",
+     * )
+     * @SWG\Tag(name="posts")
+     * @Security(name="Bearer")
+     * @param Post $post
+     * @throws HttpException
+     * @return Response
+     * @ParamConverter("post", class="App:Post")
+     */
+    public function getTags(Post $post): Response
+    {
+        $tags = $post->getTags();
+        if (!$tags) {
+            throw new HttpException(400, 'Tags not found');
+        }
+
+        return $this->createApiResponse(['data' => $tags], ['groups' => ['tag:show']]);
     }
 }

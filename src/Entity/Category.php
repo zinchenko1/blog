@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -19,26 +20,30 @@ class Category
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"post:show"})
+     * @Groups({"post:show", "category:show"})
      * @SWG\Property(description="The unique identifier of the category.")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"post:show"})
+     * @Groups({"post:show", "category:show"})
      * @SWG\Property(description="Category name.")
      */
     private $title;
 
     /**
      * @Gedmo\Slug(fields={"title"})
+     * @Groups({"category:show"})
      * @ORM\Column(type="string", length=255)
+     * @SWG\Property(description="Category slug.")
      */
     private $slug;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="category", cascade={"persist", "remove"})
+     * @Groups({"category:show"})
+     * @SWG\Property(ref=@Model(type=Post::class))
      */
     private $posts;
 
