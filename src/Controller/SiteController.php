@@ -6,12 +6,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/")
+ * @Route("index")
  */
 class SiteController extends AbstractController
 {
     /**
-     * @Route("/", name="site_index")
+     * @Route("index", name="site_index")
      */
     public function index(): Response
     {
