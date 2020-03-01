@@ -4,10 +4,9 @@ namespace App\Controller\Api;
 
 use App\Entity\Tag;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use FOS\RestBundle\Controller\Annotations as FOSRest;
-use HttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -33,7 +32,7 @@ class TagController extends ApiController
 
     /**
      * Return tag by ID.
-     * @FOSRest\Get("/tags/{id<\d+>}")
+     * @Route("/tags/{id<\d+>}", name="api_tag_show", methods={"GET"})
      *
      * @SWG\Response(
      *     response=200,
@@ -55,7 +54,7 @@ class TagController extends ApiController
 
     /**
      * Delete tag by ID.
-     * @FOSRest\Delete("/tags/{id<\d+>}")
+     * @Route("/tags/{id<\d+>}", name="api_tag_delete", methods={"DELETE"})
      *
      * @SWG\Response(
      *     response=204,
@@ -79,7 +78,7 @@ class TagController extends ApiController
 
     /**
      * Return all tags.
-     * @FOSRest\Get("/tags")
+     * @Route("/tags", name="api_tags_list", methods={"GET"})
      *
      * @SWG\Response(
      *     response=200,

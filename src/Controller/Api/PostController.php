@@ -4,10 +4,9 @@ namespace App\Controller\Api;
 
 use App\Entity\Post;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use FOS\RestBundle\Controller\Annotations as FOSRest;
-use HttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -33,7 +32,7 @@ class PostController extends ApiController
 
     /**
      * Return post by ID.
-     * @FOSRest\Get("/posts/{id<\d+>}")
+     * @Route("/posts/{id<\d+>}", name="api_post_show", methods={"GET"})
      *
      * @SWG\Response(
      *     response=200,
@@ -56,7 +55,7 @@ class PostController extends ApiController
 
     /**
      * Delete post by ID.
-     * @FOSRest\Delete("/posts/{id<\d+>}")
+     * @Route("/posts/{id<\d+>}", name="api_post_delete", methods={"DELETE"})
      *
      * @SWG\Response(
      *     response=204,
@@ -82,7 +81,7 @@ class PostController extends ApiController
 
     /**
      * Return all posts.
-     * @FOSRest\Get("/posts")
+     * @Route("/posts", name="api_posts_list", methods={"GET"})
      *
      * @SWG\Response(
      *     response=200,
@@ -104,7 +103,7 @@ class PostController extends ApiController
     /**
      * Return List Comments.
      *
-     * @FOSRest\Get(path="/{post}/comments", name="api_post_comments")
+     * @Route("/{post}/comments", name="api_post_comments", methods={"GET"})
      * @SWG\Response(
      *     response=200,
      *     description="Success"
@@ -129,7 +128,7 @@ class PostController extends ApiController
     /**
      * Return List Tags.
      *
-     * @FOSRest\Get(path="/{post}/tags", name="api_post_tags")
+     * @Route("/{post}/tags", name="api_post_tag", methods={"GET"})
      * @SWG\Response(
      *     response=200,
      *     description="Return Tags list by Post ID",

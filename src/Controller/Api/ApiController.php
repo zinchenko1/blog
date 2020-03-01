@@ -2,11 +2,11 @@
 
 namespace App\Controller\Api;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class ApiController extends AbstractFOSRestController
+class ApiController extends AbstractController
 {
     /**
      * @var SerializerInterface

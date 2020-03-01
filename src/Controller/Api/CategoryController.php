@@ -4,9 +4,9 @@ namespace App\Controller\Api;
 
 use App\Entity\Category;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use FOS\RestBundle\Controller\Annotations as FOSRest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -32,7 +32,7 @@ class CategoryController extends ApiController
 
     /**
      * Return category by ID.
-     * @FOSRest\Get("/categories/{id<\d+>}")
+     * @Route("/categories/{id<\d+>}", name="api_category_show", methods={"GET"})
      *
      * @SWG\Response(
      *     response=200,
@@ -54,7 +54,7 @@ class CategoryController extends ApiController
 
     /**
      * Delete category by ID.
-     * @FOSRest\Delete("/categories/{id<\d+>}")
+     * @Route("/categories/{id<\d+>}", name="api_category_delete", methods={"DELETE"})
      *
      * @SWG\Response(
      *     response=204,
@@ -78,7 +78,7 @@ class CategoryController extends ApiController
 
     /**
      * Return all categories.
-     * @FOSRest\Get("/categories")
+     * @Route("/categories", name="api_categories_list", methods={"GET"})
      *
      * @SWG\Response(
      *     response=200,
