@@ -19,14 +19,14 @@ class Tag
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"post:show"})
+     * @Groups({"post:show", "tag:show"})
      * @SWG\Property(description="The unique identifier of the tag.")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"post:show"})
+     * @Groups({"post:show", "tag:show"})
      * @SWG\Property(description="Tag name.")
      */
     private $name;
@@ -34,11 +34,13 @@ class Tag
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=255)
+     * @Groups({"tag:show"})
+     * @SWG\Property(description="Tag slug.")
      */
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\post", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Post", mappedBy="tags")
      */
     private $posts;
 

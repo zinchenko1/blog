@@ -44,14 +44,14 @@ class Post
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"post:show"})
+     * @Groups({"post:show", "category:show"})
      * @SWG\Property(description="The unique identifier of the post.")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"post:show"})
+     * @Groups({"post:show", "category:show"})
      * @SWG\Property(description="The title of the post.")
      */
     private $title;
@@ -117,7 +117,7 @@ class Post
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="posts", cascade={"persist", "remove"})
-     * @Groups({"post:show"})
+     * @Groups({"post:show", "tag:show"})
      * @SWG\Property(ref=@Model(type=Tag::class))
      */
     private $tags;

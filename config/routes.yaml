@@ -1,6 +1,7 @@
 index:
     path: /
     controller: App\Controller\SiteController::index
+    
 app.swagger_ui:
     path: /api-doc
     methods: GET
@@ -10,10 +11,12 @@ app.swagger:
     path: /api-doc.json
     methods: GET
     defaults: { _controller: nelmio_api_doc.controller.swagger }
-
-api:
-    path: /api
-    controller: App\Controller\Api\SecurityController::api
+    
 api_login_check:
     path:     /api/login
+    methods:  POST
+
+gesdinet_jwt_refresh_token:
+    path:       /api/token/refresh
+    controller: gesdinet.jwtrefreshtoken::refresh
     methods:  POST
