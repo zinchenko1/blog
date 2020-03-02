@@ -3,6 +3,8 @@
 namespace App\DataFixtures\Faker;
 
 use App\Entity\Post;
+use App\Entity\User\Author;
+use App\Entity\User\Commentator;
 use App\Entity\User\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,12 +37,12 @@ class AppFaker
         return $this->encoder->encodePassword($user, $plainPassword);
     }
 
-    public function getUserStatusActive()
+    public function getUserStatusActive(): int
     {
         return User::STATUS_ACTIVE;
     }
 
-    public function getRandomPostStatus()
+    public function getRandomPostStatus(): int
     {
         return array_rand(Post::STATUS_OPTIONS);
     }

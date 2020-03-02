@@ -18,7 +18,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\DiscriminatorMap({
  *     "admin" = "Admin",
  *     "author" = "Author",
- *     "commentator" = "Commentator"
  * })
  */
 abstract class User implements UserInterface
@@ -36,7 +35,6 @@ abstract class User implements UserInterface
     public const ROLES = [
         'admin' => 'ROLE_ADMIN',
         'author' => 'ROLE_AUTHOR',
-        'commentator' => 'ROLE_COMMENTATOR'
     ];
 
     /**
