@@ -52,13 +52,6 @@ class Comment
      */
     private $createdAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User\Commentator", inversedBy="comments")
-     * @Groups({"comment:show"})
-     * @SWG\Property(description="The author of the comment.")
-     */
-    private $author;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -108,18 +101,6 @@ class Comment
     public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?Commentator
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?Commentator $author): self
-    {
-        $this->author = $author;
 
         return $this;
     }

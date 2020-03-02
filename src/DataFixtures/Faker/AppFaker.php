@@ -46,9 +46,4 @@ class AppFaker
     {
         return array_rand(Post::STATUS_OPTIONS);
     }
-
-    public function getAuthorNotSet()
-    {
-        return Commentator::NOT_SET;
-    }
 }

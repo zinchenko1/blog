@@ -30,15 +30,15 @@ App\Entity\User\User:
 
 App\Entity\User\Admin:
     admin_1 (extends user):
-        email: 'admin@blog.loc'
+        email: 'admin@example.com'
         password: "<encodePassword(@self, 'test')>"
 
 App\Entity\User\Author:
     author_1 (extends user):
-        email: 'author@blog.log'
+        email: 'author@example.com'
         password: "<encodePassword(@self, 'test')>"
     author_2 (extends user):
-        email: 'author2@blog.log'
+        email: 'author2@example.com'
         password: "<encodePassword(@self, 'test')>"
     author_{3..25} (extends user):
         email (unique): '<email()>'
@@ -58,5 +58,4 @@ App\Entity\Comment:
     comment_{1..200}:
         title: '<word()>'
         body: '<text(512)>'
-        author: '<getAuthorNotSet()>'
         post: '@post_<numberBetween(1,100)>'
