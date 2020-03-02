@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,10 +19,10 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('first_name')
-            ->add('last_name')
-            ->add('status')
-            ->add('email')
+            ->add('first_name', TextType::class, ['label' => false, 'attr' => ['placeholder' => 'Enter your first name']])
+            ->add('last_name', TextType::class, ['label' => false, 'attr' => ['placeholder' => 'Enter your last name']])
+            ->add('email', EmailType::class, ['label' => false, 'attr' => ['placeholder' => 'Enter your email']])
+            ->add('status', TextType::class, ['label' => false, 'attr' => ['placeholder' => 'Enter your status']])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -32,6 +33,10 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 'mapped' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Enter your password'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
