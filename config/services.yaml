@@ -27,3 +27,19 @@ services:
     # please note that last definitions always *replace* previous ones
     App\DataFixtures\Faker\AppFaker:
         tags: [ { name: nelmio_alice.faker.provider } ]
+
+    app.menu_builder:
+        class: App\Menu\Builder
+        arguments: ["@knp_menu.factory"]
+
+    app.main_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu_builder", MainMenu]
+        tags:
+            - { name: knp_menu.menu, alias: nav }
+
+    app.mobile_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu_builder", MobileMenu]
+        tags:
+            - { name: knp_menu.menu, alias: navMobile }

@@ -8,14 +8,7 @@
                     </a>
                 </div>
 
-                <ul class="nav-menu nav navbar-nav">
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Popular</a></li>
-                    <li class="cat-1"><a href="#">Web Design</a></li>
-                    <li class="cat-2"><a href="#">JavaScript</a></li>
-                    <li class="cat-3"><a href="#">Css</a></li>
-                    <li class="cat-4"><a href="#">Jquery</a></li>
-                </ul>
+                {{ knp_menu_render('nav', {'currentClass': 'active'}) }}
 
                 <div class="nav-btns">
                     <button class="aside-btn"><i class="fa fa-bars"></i></button>
@@ -39,13 +32,15 @@
 
         <div id="nav-aside">
             <div class="section-row">
-                <ul class="nav-aside-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="#">Join Us</a></li>
-                    <li><a href="#">Advertisement</a></li>
-                    <li><a href="contact.html">Contacts</a></li>
-                </ul>
+                {{ knp_menu_render('navMobile', {'currentClass': 'active'}) }}
+
+{#                <ul class="nav-aside-menu">#}
+{#                    <li><a href="index.html">Home</a></li>#}
+{#                    <li><a href="about.html">About Us</a></li>#}
+{#                    <li><a href="#">Join Us</a></li>#}
+{#                    <li><a href="#">Advertisement</a></li>#}
+{#                    <li><a href="contact.html">Contacts</a></li>#}
+{#                </ul>#}
             </div>
 
             <div class="section-row">

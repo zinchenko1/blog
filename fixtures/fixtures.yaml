@@ -5,22 +5,31 @@ App\Entity\Tag:
 App\Entity\Category:
     category_1:
         title: 'Blogging'
+        isMain: '<getCategoryIsMain()>'
     category_2:
         title: 'Freelancing'
+        isMain: '<getCategoryIsMain()>'
     category_3:
         title: 'How to Succeed'
+        isMain: '<getCategoryIsMain()>'
     category_4:
         title: 'Income Reports'
+        isMain: '<getCategoryIsMain()>'
     category_5:
         title: 'Internet Marketing'
+        isMain: '<getCategoryIsBasic()>'
     category_6:
         title: 'Miscellaneous'
+        isMain: '<getCategoryIsBasic()>'
     category_7:
         title: 'Quitting Your Job'
+        isMain: '<getCategoryIsBasic()>'
     category_8:
         title: 'Search Engine Optimization'
+        isMain: '<getCategoryIsBasic()>'
     category_9:
         title: 'Social Media'
+        isMain: '<getCategoryIsBasic()>'
 
 App\Entity\User\User:
     user (template):
