@@ -28,6 +28,7 @@ easy_admin:
             form:
                 fields:
                     - 'title'
+                    - { property: 'isMain', label: 'Type', type: 'choice', type_options: { choices: !php/const App\Entity\Category::STATUSES }}
             list:
                 title: "Categories"
             search:

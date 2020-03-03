@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures\Faker;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\User\Author;
 use App\Entity\User\Commentator;
@@ -45,5 +46,15 @@ class AppFaker
     public function getRandomPostStatus(): int
     {
         return array_rand(Post::STATUS_OPTIONS);
+    }
+
+    public function getCategoryIsMain(): bool
+    {
+        return Category::MAIN;
+    }
+
+    public function getCategoryIsBasic(): bool
+    {
+        return Category::BASIC;
     }
 }
