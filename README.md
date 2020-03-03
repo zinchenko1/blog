@@ -21,5 +21,5 @@ Links
     
 Admin user
 
-    admin@blog.loc
+    admin@example.com
     test
