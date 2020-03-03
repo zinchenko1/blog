@@ -42,8 +42,8 @@ class CategoryController extends ApiController
      * @SWG\Tag(name="categories")
      * @Security(name="Bearer")
      * @param Category $category
-     * @return response
-     * @ParamConverter("pagegory", class="App:Category")
+     * @return Response
+     * @ParamConverter("category", class="App:Category")
      */
     public function getCategory($category): Response
     {
