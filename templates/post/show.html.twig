@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html.twig' %}
+
+
+{% block body %}
+    <div class="col-md-12">
+        <div class="row">
+            <h1></h1>
+            <div class="col-md-12">
+                <div class="post post-row">
+                    <a class="post-img" href="blog-post.html"><img src="/img/post-1.jpg" alt=""></a>
+                    <div class="post-body">
+                        <h1>{{ post.title }}</h1>
+                        <div class="post-meta">
+                            <a class="post-category cat-2" href="{{ path('index') }}">JavaScript</a>
+                            <span class="post-date"></span>
+                        </div>
+                        <h3 class="post-title"><a href="blog-post.html">{{ post.description }}</a></h3>
+                        <p>{{ post.body }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
