@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Table;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SubscriberRepository")
@@ -23,8 +24,6 @@ class Subscriber
         self::STATUS_UNVERIFIED => 'Unverified',
         self::STATUS_APPROVED => 'Approved'
     ];
-
-    public const TOKEN_LENGTH = 128;
 
     /**
      * @ORM\Id()
@@ -79,7 +78,7 @@ class Subscriber
 
     public function setToken(): self
     {
-        $this->token = self::generateToken();
+        $this->token = Uuid::uuid4();
 
         return $this;
     }
@@ -106,10 +105,5 @@ class Subscriber
         $this->createdAt = $createdAt;
 
         return $this;
-    }
-
-    public static function generateToken()
-    {
-        return rtrim(strtr(base64_encode(random_bytes(self::TOKEN_LENGTH)), '+/', '-_'), '=');
     }
 }
