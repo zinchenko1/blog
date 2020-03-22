@@ -23,3 +23,7 @@ Admin user
 
     admin@example.com
     test
+
+To send notifications run command
+    
+    bin/console s:s:n
