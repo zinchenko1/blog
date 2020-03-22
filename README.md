@@ -26,4 +26,4 @@ Admin user
 
 To send notifications run command
     
-    bin/console swiftmailer:spool:send --env=dev
+    bin/console s:s:n

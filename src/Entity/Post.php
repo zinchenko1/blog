@@ -43,6 +43,8 @@ class Post
         'Archived' => self::STATUS_ARCHIVED,
     ];
 
+    public const POPULAR_POSTS_COUNT = 5;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -132,10 +134,17 @@ class Post
      */
     private $author;
 
+    /**
+     * @var ArrayCollection|PostView[]
+     * @ORM\OneToMany(targetEntity="App\Entity\PostView", mappedBy="post")
+     */
+    private $postViews;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->postViews = new ArrayCollection();
     }
 
     public function __toString()
@@ -311,6 +320,34 @@ class Post
     public function setAuthor(?Author $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+    
+    public function getPostViews(): Collection
+    {
+        return $this->postViews;
+    }
+
+
+    public function addPostView(PostView $postView): self
+    {
+        if (!$this->postViews->contains($postView)) {
+            $this->postViews[] = $postView;
+            $postView->set($this);
+        }
+
+        return $this;
+    }
+    
+    public function removePostView(PostView $postView): self
+    {
+        if ($this->postViews->contains($postView)) {
+            $this->postViews->removeElement($postView);
+            if ($postView->getPost() === $this) {
+                $postView->setPost(null);
+            }
+        }
 
         return $this;
     }

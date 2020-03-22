@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Subscriber;
 use App\Form\SubscriberType;
+use App\Repository\SubscriberRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,10 +18,12 @@ use App\Service\NotificationSender;
 class SubscriberController extends AbstractController
 {
     private $registry;
+    private $subscriberRepository;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, SubscriberRepository $subscriberRepository)
     {
         $this->registry = $registry;
+        $this->subscriberRepository = $subscriberRepository;
     }
 
     /**
@@ -34,7 +37,6 @@ class SubscriberController extends AbstractController
         $subscriber = new Subscriber();
         $form = $this->createForm(SubscriberType::class, $subscriber);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $subscriber->setStatus(Subscriber::STATUS_UNVERIFIED);
             $subscriber->setToken();
@@ -70,15 +72,30 @@ class SubscriberController extends AbstractController
      */
     public function subscriberConfirm($token): Response
     {
-        $repository = $this->getDoctrine()->getRepository(Subscriber::class);
-        if($subscriber = $repository->findOneBy(['token' => $token])) {
-            /** @var Subscriber $subscriber */
+        if($subscriber = $this->subscriberRepository->findByToken($token)) {
+            assert($subscriber instanceof Subscriber);
             $subscriber->setStatus(Subscriber::STATUS_APPROVED);
             $em = $this->registry->getManager();
-            $em->persist($subscriber);
             $em->flush();
-
             $this->addFlash('success', 'Subscription confirmed!');
+
+            return $this->redirectToRoute('site_index');
+        }
+    }
+
+    /**
+     * @Route("/unsubscribing/{token}", name="unsubscribing", requirements={"token"=".+"}, methods={"GET"})
+     * @param $token
+     * @return Response
+     */
+    public function subscriberUnsubscribing($token): Response
+    {
+        if($subscriber = $this->subscriberRepository->findByToken($token)) {
+            assert($subscriber instanceof Subscriber);
+            $em = $this->registry->getManager();
+            $em->remove($subscriber);
+            $em->flush();
+            $this->addFlash('success', 'Unsubscribing confirmed!');
 
             return $this->redirectToRoute('site_index');
         }
