@@ -12,7 +12,7 @@
                     <div class="post-body">
                         <h1>{{ post.title }}</h1>
                         <div class="post-meta">
-                            <a class="post-category cat-2" href="">{{ post.category.title }}</a>
+                            <a class="post-category cat-2" href="{{ path('category_posts',  {'categorySlug': post.category.slug }) }}">{{ post.category.title }}</a>
                             <span class="post-date">{{ post.createdAt.date|localizeddate('long', 'short') }}</span>
                         </div>
                         <h3 class="post-title">{{ post.description }}</h3>
@@ -39,59 +39,6 @@
                         </div>
                     </div>
                 </div>
-
-{#                <div class="section-row">#}
-{#                    <div class="section-title">#}
-{#                        <h2>3 Comments</h2>#}
-{#                    </div>#}
-{#                    <div class="post-comments">#}
-
-{#                        <div class="media">#}
-{#                            <div class="media-left">#}
-{#                                <img class="media-object" src="./img/avatar.png" alt="">#}
-{#                            </div>#}
-{#                            <div class="media-body">#}
-{#                                <div class="media-heading">#}
-{#                                    <h4>John Doe</h4>#}
-{#                                    <span class="time">March 27, 2018 at 8:00 am</span>#}
-{#                                    <a href="#" class="reply">Reply</a>#}
-{#                                </div>#}
-{#                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>#}
-
-{#                                <div class="media">#}
-{#                                    <div class="media-left">#}
-{#                                        <img class="media-object" src="./img/avatar.png" alt="">#}
-{#                                    </div>#}
-{#                                    <div class="media-body">#}
-{#                                        <div class="media-heading">#}
-{#                                            <h4>John Doe</h4>#}
-{#                                            <span class="time">March 27, 2018 at 8:00 am</span>#}
-{#                                            <a href="#" class="reply">Reply</a>#}
-{#                                        </div>#}
-{#                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>#}
-{#                                    </div>#}
-{#                                </div>#}
-
-{#                            </div>#}
-{#                        </div>#}
-
-
-{#                        <div class="media">#}
-{#                            <div class="media-left">#}
-{#                                <img class="media-object" src="./img/avatar.png" alt="">#}
-{#                            </div>#}
-{#                            <div class="media-body">#}
-{#                                <div class="media-heading">#}
-{#                                    <h4>John Doe</h4>#}
-{#                                    <span class="time">March 27, 2018 at 8:00 am</span>#}
-{#                                    <a href="#" class="reply">Reply</a>#}
-{#                                </div>#}
-{#                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>#}
-{#                            </div>#}
-{#                        </div>#}
-
-{#                    </div>#}
-{#                </div>#}
 
                 <div class="section-row">
 

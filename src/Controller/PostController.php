@@ -11,9 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PostController extends AbstractController
 {
-
     /**
-     * @Route("/post/{postSlug}", name="_index", methods={"GET"})
+     * @Route("/post/{postSlug}", name="post", methods={"GET"})
      * @return Response
      * @ParamConverter("postSlug", options={"mapping" : {"postSlug" : "slug"}})
      */

@@ -1062,3 +1062,9 @@ RESPONSIVE
 .blog-post .post-body {
     margin-left: 0!important;
 }
+
+.post-elipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
