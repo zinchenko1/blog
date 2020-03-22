@@ -8,6 +8,8 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Table;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
@@ -15,14 +17,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @Table(name="post",indexes={@Index(name="status", columns={"status"})})
  */
 class Post
 {
-    public const STATUS_DRAFT = 1;
-    public const STATUS_REVIEW = 2;
-    public const STATUS_ACTIVE = 3;
-    public const STATUS_CLOSED = 4;
-    public const STATUS_ARCHIVED = 5;
+    public const STATUS_DRAFT = 'draft';
+    public const STATUS_REVIEW = 'review';
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_CLOSED = 'closed';
+    public const STATUS_ARCHIVED = 'archived';
 
     public const STATUS_OPTIONS = [
         self::STATUS_DRAFT,
@@ -71,7 +74,7 @@ class Post
     private $body;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="string", length=10)
      * @Groups({"post:show"})
      * @SWG\Property(description="The status of the post.")
      */
@@ -181,12 +184,12 @@ class Post
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(int $status): self
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 

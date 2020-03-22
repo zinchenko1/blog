@@ -38,14 +38,14 @@ class AppFaker
         return $this->encoder->encodePassword($user, $plainPassword);
     }
 
-    public function getUserStatusActive(): int
+    public function getUserStatusActive(): string
     {
         return User::STATUS_ACTIVE;
     }
 
-    public function getRandomPostStatus(): int
+    public function getRandomPostStatus(): string
     {
-        return array_rand(Post::STATUS_OPTIONS);
+        return Post::STATUS_OPTIONS[array_rand(Post::STATUS_OPTIONS)];
     }
 
     public function getCategoryIsMain(): bool
