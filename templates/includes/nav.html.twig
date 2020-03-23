@@ -19,7 +19,7 @@
                     </div>
                     <div class="register-button">
                         {% if app.user %}
-                            <span class="label label-info">{{ app.user.username }}</span>
+                            <a class="btn btn-warning" href="{{ path('easyadmin') }}">Admin Panel</a>
                             <a class="btn btn-danger" href="{{ path('app_logout') }}">Logout</a>
                         {% else %}
                             <a class="btn btn-success" href="{{ path('app_login') }}">Sign in</a>
@@ -33,14 +33,6 @@
         <div id="nav-aside">
             <div class="section-row">
                 {{ knp_menu_render('navMobile', {'currentClass': 'active'}) }}
-
-{#                <ul class="nav-aside-menu">#}
-{#                    <li><a href="index.html">Home</a></li>#}
-{#                    <li><a href="about.html">About Us</a></li>#}
-{#                    <li><a href="#">Join Us</a></li>#}
-{#                    <li><a href="#">Advertisement</a></li>#}
-{#                    <li><a href="contact.html">Contacts</a></li>#}
-{#                </ul>#}
             </div>
 
             <div class="section-row">
