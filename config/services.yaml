@@ -45,3 +45,8 @@ services:
         factory: ["@app.menu_builder", MobileMenu]
         tags:
             - { name: knp_menu.menu, alias: navMobile }
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extensions }

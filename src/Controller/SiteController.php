@@ -16,7 +16,12 @@ class SiteController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('/layouts/base.html.twig');
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+        $posts = $repository->findAll();
+
+        return $this->render('/layouts/base.html.twig', [
+            'posts' => $posts
+        ]);
     }
 
     /**
