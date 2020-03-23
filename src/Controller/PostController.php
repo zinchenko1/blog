@@ -26,7 +26,7 @@ class PostController extends AbstractController
         $userAgent = $request->headers->get('user-agent');
 
         $repository = $this->getDoctrine()->getRepository(Post::class);
-        $post = $repository->findOneBy(['slug' => $postSlug]);
+        $post = $repository->findOneBy(['slug' => $postSlug, 'status' => Post::STATUS_ACTIVE]);
 
         $this->incrementView($post, $request->getClientIp(), $userAgent);
 
