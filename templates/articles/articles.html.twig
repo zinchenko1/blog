@@ -20,7 +20,7 @@
                                         <span class="post-date">{{ post.createdAt.date|localizeddate('long', 'short') }}</span>
                                     </div>
                                     <h3 class="post-title"><a href="{{ path('post',  {'postSlug': post.slug }) }}">{{ post.description }}</a></h3>
-                                    <p class="post-elipsis">{{ post.body }}</p>
+                                    <p class="post-elipsis">{{ post.description }}</p>
                                 </div>
                             </div>
                         </div>
