@@ -1047,3 +1047,24 @@ RESPONSIVE
          display:none;
     }
 }
+
+
+.blog-post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.blog-post-photo a img {
+    width: initial!important;
+}
+
+.blog-post .post-body {
+    margin-left: 0!important;
+}
+
+.post-elipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
