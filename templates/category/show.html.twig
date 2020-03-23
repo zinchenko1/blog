@@ -1,26 +1,43 @@
+{% extends 'layouts/base.html.twig' %}
 
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="section-title">
-                            <h2>Category </h2>
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="section-title">
+                                <h2>Category {{ categoryPosts.title }}</h2>
+                            </div>
                         </div>
-                    </div>
 
-                    {{ dump(categoryPosts) }}
+                        {% for post in categoryPosts.posts %}
+                            <div class="col-md-12">
+                                <div class="post post-row">
+                                    <a class="post-img" href="{{ path('post',  {'postSlug': post.slug }) }}"><img src="/img/post-1.jpg" alt=""></a>
+                                    <div class="post-body">
+                                        <div class="post-meta">
+                                            <a class="post-category cat-4" href="{{ path('category_posts',  {'categorySlug': post.category.slug }) }}">{{ post.category.title }}</a>
+                                            <span class="post-date">{{ post.createdAt.date|localizeddate('long', 'short') }}</span>
+                                        </div>
+                                        <h3 class="post-title"><a href="{{ path('post',  {'postSlug': post.slug }) }}">{{ post.description }}</a></h3>
+                                        <p class="post-elipsis">{{ post.body }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
 
-                    <div class="col-md-12">
-                        <div class="section-row">
-                            <button class="primary-button center-block">Load More</button>
+                        <div class="col-md-12">
+                            <div class="section-row">
+                                <button class="primary-button center-block">Load More</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {% include 'includes/sidebar.html.twig' %}
+                {% include 'includes/sidebar.html.twig' %}
+            </div>
         </div>
     </div>
-</div>
+{% endblock %}

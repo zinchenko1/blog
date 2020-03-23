@@ -18,7 +18,8 @@ class CategoryController extends AbstractController
      */
     public function getCategoryPosts($categorySlug): Response
     {
-        $category = $this->getDoctrine()->getRepository(Category::class)->findBy(['slug' => $categorySlug]);
+        $repository = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repository->findOneBy(['slug' => $categorySlug]);
 
         return $this->render('/category/show.html.twig', [
             'categoryPosts' => $category
