@@ -48,4 +48,23 @@ class PostRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function createIsActiveQueryBuilder()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.status = :status')
+            ->setParameter('status', Post::STATUS_ACTIVE)
+        ;
+    }
+
+    public function getCountActivePosts()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->where('p.status = :status')
+            ->setParameter('status', Post::STATUS_ACTIVE)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }

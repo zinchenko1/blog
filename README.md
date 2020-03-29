@@ -27,3 +27,12 @@ Admin user
 To send notifications run command
     
     bin/console s:s:n
+    
+Installing and Configuring Elasticsearch (step 1)
+
+    https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-18-04
+    
+Update search indexes
+
+     bin/console fos:elastica:populate
+

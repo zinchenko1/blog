@@ -109,11 +109,26 @@
     "egulias/email-validator": {
         "version": "2.1.17"
     },
+    "elasticsearch/elasticsearch": {
+        "version": "v6.7.2"
+    },
     "exsyst/swagger": {
         "version": "v0.4.1"
     },
     "fig/link-util": {
         "version": "1.1.0"
+    },
+    "friendsofsymfony/elastica-bundle": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "5.0",
+            "ref": "46c9cd2c1e07f0fcfd97e96f12b03b2e0845c4cd"
+        },
+        "files": [
+            "config/packages/fos_elastica.yaml"
+        ]
     },
     "fzaninotto/faker": {
         "version": "v1.9.1"
@@ -123,6 +138,12 @@
     },
     "gesdinet/jwt-refresh-token-bundle": {
         "version": "v0.9.1"
+    },
+    "guzzlehttp/ringphp": {
+        "version": "1.1.1"
+    },
+    "guzzlehttp/streams": {
+        "version": "3.0.0"
     },
     "hautelook/alice-bundle": {
         "version": "2.1",
@@ -141,11 +162,17 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "knplabs/knp-components": {
+        "version": "v2.3.3"
+    },
     "knplabs/knp-menu": {
         "version": "v3.1.0"
     },
     "knplabs/knp-menu-bundle": {
         "version": "v3.0.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.1.1"
     },
     "laminas/laminas-code": {
         "version": "3.4.1"
@@ -244,6 +271,12 @@
     },
     "ramsey/uuid": {
         "version": "3.9.3"
+    },
+    "react/promise": {
+        "version": "v2.7.1"
+    },
+    "ruflin/elastica": {
+        "version": "6.1.1"
     },
     "sebastian/comparator": {
         "version": "3.0.2"
