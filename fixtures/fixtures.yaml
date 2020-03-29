@@ -55,9 +55,9 @@ App\Entity\User\Author:
 
 App\Entity\Post:
     post_{1..100}:
-        title: '<word()>'
+        title: '<catchPhrase()>'
         description: '<text(256)>'
-        body: '<text(1024)>'
+        body: '<text(4096)>'
         status: '<getRandomPostStatus()>'
         category: '@category_<numberBetween(1,9)>'
         tags: '<numberBetween(1, 25)>x @tag_*'

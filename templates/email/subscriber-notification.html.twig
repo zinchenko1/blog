@@ -1,0 +1,20 @@
+Hi {{ email }}!
+<br>
+Most popular posts:
+<br>
+{% if posts %}
+    <ol>
+    {% for post in posts %}
+        <li>
+            <a href="{{ path('post', {postSlug: post.slug}) }}">{{ post.title }}</a>
+        </li>
+    {% endfor %}
+    </ol>
+{% endif %}
+<br>
+For questions about this list, please contact:
+<br>
+<a href="mailto:admin@zraiev.top" style="color:#336699" target="_blank">admin@zraiev.top</a>
+<br>
+<a href="{{ url }}">Unsubscribe from this newsletter.</a>
+<br>
