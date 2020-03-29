@@ -7,6 +7,7 @@ use App\Entity\Post;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\Query;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CategoryController extends AbstractController
@@ -22,7 +23,7 @@ class CategoryController extends AbstractController
         $category = $repository->findOneBy(['slug' => $categorySlug]);
 
         return $this->render('/category/show.html.twig', [
-            'categoryPosts' => $category
+            'categoryPosts' => $category,
         ]);
 
     }

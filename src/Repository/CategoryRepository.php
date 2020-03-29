@@ -18,4 +18,23 @@ class CategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Category::class);
     }
+
+    /**
+     * @return array
+     */
+    public function getRelatedPosts(): array
+    {
+        $result = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('c, p')
+            ->where('c.isMain = 0')
+            ->from('App\Entity\Category', 'c')
+            ->join('c.posts', 'p')
+            ->setMaxResults(40 )
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
 }

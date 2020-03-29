@@ -6,8 +6,9 @@ use App\Entity\Category;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class Builder
+class Builder  extends AbstractController
 {
     private $factory;
     private $registry;
@@ -55,6 +56,37 @@ class Builder
         foreach ($categories as $category) {
             $params = ['categorySlug' => $category->getSlug()];
             $menu->addChild($category->getTitle(), ['route' => 'category_posts', 'routeParameters' => $params]);
+        }
+
+        return $menu;
+    }
+
+    /**
+     * @return ItemInterface
+     */
+    public function SidebarMenu(): ItemInterface
+    {
+        $counter = 1;
+        $repository = $this->getDoctrine()->getRepository(Category::class);
+        $categories = $repository->getRelatedPosts();
+
+        $menu = $this->factory->createItem('root');
+        $menu->setChildrenAttribute('class', 'nav-sidebar-menu');
+
+        foreach ($categories as $key => $category) {
+            $count = count($category->getPosts());
+            $class = implode('-', ['cat', $counter]);
+            $params = ['categorySlug' => $category->getSlug()];
+            $menu->addChild($category->getTitle(), [
+                'route' => 'category_posts',
+                'routeParameters' => $params,
+                'label' => $category->getTitle().'<span>'.$count.'</span></a>',
+                'extras' => [
+                    'safe_label' => true
+                ]
+            ])
+                ->setAttributes(['class'=> $class]);
+            $counter++;;
         }
 
         return $menu;

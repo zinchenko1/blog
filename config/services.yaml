@@ -44,6 +44,12 @@ services:
         tags:
             - { name: knp_menu.menu, alias: navMobile }
 
+    app.sidebar_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu_builder", SidebarMenu]
+        tags:
+            - { name: knp_menu.menu, alias: navSidebar }
+
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
         tags:

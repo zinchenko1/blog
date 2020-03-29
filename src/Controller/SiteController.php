@@ -18,7 +18,7 @@ class SiteController extends AbstractController
         $posts = $repository->findAll();
 
         return $this->render('/layouts/base.html.twig', [
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
 }
