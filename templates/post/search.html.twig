@@ -5,19 +5,21 @@
 {% block body %}
     <div class="section">
         <div class="container">
-            <h1 class="text-center pt-4">Search results for request - "{{ query }}" - {{ posts|length }} <span class="post-count"></span></h1>
+            <h1 class="text-center pt-4">Search results for request - "{{ query }}" - {{ posts.getTotalItemCount }} <span class="post-count"></span></h1>
             {% if posts|length > 0 %}
             <div class="posts">
                 <div class="row">
                     <ul>
                         {% for post in posts %}
                             <li>
-                                {#            <a href="{{ path('post_show', {slug: post.slug}) }}">{{ post.title }}</a>#}
-                                <a href="#">{{ post.title }}</a>
+                                <a href="{{ path('post', {postSlug: post.slug}) }}">{{ post.title }}</a>
                             </li>
                         {% endfor %}
                     </ul>
                 </div>
+            </div>
+            <div class="navigation pagination justify-content-center mb-4">
+                {{ knp_pagination_render(posts) }}
             </div>
         </div>
     </div>

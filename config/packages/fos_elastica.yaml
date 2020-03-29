@@ -13,5 +13,7 @@ fos_elastica:
                     persistence:
                         driver: orm
                         model: App\Entity\Post
-                        provider: ~
+                        provider:
+                            query_builder_method: 'createIsActiveQueryBuilder'
                         finder: ~
+                        listener: ~

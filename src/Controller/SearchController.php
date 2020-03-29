@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\DTO\SearchDTO;
 use App\Entity\Post;
 use App\Form\SearchType;
+use App\Repository\PostRepository;
 use FOS\ElasticaBundle\Manager\RepositoryManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +15,20 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends AbstractController
 {
+    private $knpPaginator;
+    private $postRepository;
+
+    /**
+     * SearchController constructor.
+     * @param PaginatorInterface $knpPaginator
+     * @param PostRepository $postRepository
+     */
+    public function __construct(PaginatorInterface $knpPaginator, PostRepository $postRepository)
+    {
+        $this->knpPaginator = $knpPaginator;
+        $this->postRepository = $postRepository;
+    }
+
     /**
      * @Route("/search", name="search", methods={"GET"})
      * @param Request $request
@@ -29,17 +45,22 @@ class SearchController extends AbstractController
          */
         $searchData = $searchForm->getData();
         $query = $searchData->getQuery();
-        $posts = [];
+        $limit = $this->postRepository->getCountActivePosts();
+
         if ($query !== null) {
             $posts = $repositoryManager
                 ->getRepository(Post::class)
-                ->find($query)
+                ->find($query, $limit)
             ;
+            $paginatedPosts = $this->knpPaginator->paginate(
+                $posts,
+                $request->query->getInt('page', 1), 10
+            );
         }
 
         return $this->render('post/search.html.twig', [
             'query' => $query,
-            'posts' => $posts,
+            'posts' => $paginatedPosts,
         ]);
     }
 
