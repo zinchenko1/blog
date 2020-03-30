@@ -1068,3 +1068,28 @@ RESPONSIVE
     white-space: nowrap;
     overflow: hidden;
 }
+
+.pagination-block {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination span {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    text-align: center;
+}
+
+.pagination span  a {
+    text-decoration: none;
+}
+
+.pagination .current {
+    background: #0078ff;
+    color: white;
+    margin-right: -4px;
+}
+
+/*.pagination span  a:not(last-child) {*/
+/*    margin-right: 5px;*/
+/*}*/
