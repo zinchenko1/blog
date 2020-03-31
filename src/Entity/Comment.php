@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\User\Commentator;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -26,9 +25,16 @@ class Comment
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"comment:show"})
-     * @SWG\Property(description="The title of the comment.")
+     * @SWG\Property(description="The name of the comment.")
      */
-    private $title;
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=180)
+     * @Groups({"comment:show"})
+     * @SWG\Property(description="Comment email.")
+     */
+    private $email;
 
     /**
      * @ORM\Column(type="text")
@@ -57,14 +63,26 @@ class Comment
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): self
+    public function setName(string $name): self
     {
-        $this->title = $title;
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

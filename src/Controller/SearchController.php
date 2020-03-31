@@ -54,7 +54,7 @@ class SearchController extends AbstractController
             ;
             $paginatedPosts = $this->knpPaginator->paginate(
                 $posts,
-                $request->query->getInt('page', 1), 10
+                $request->query->getInt('page', 1), 5
             );
         }
 

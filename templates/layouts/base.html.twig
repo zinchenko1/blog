@@ -3,7 +3,9 @@
     <head>
         <meta charset="UTF-8">
 
-        {% block meta %}{% endblock %}
+        {% block meta %}
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% endblock %}
 
         <title>{% block title %}Blog{% endblock %}</title>
 
@@ -14,21 +16,32 @@
             <link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
             <link rel="stylesheet" href="{{ asset('/css/style.css') }}"/>
         {% endblock %}
-
     </head>
     <body>
         {% block header %}
             {% include 'includes/nav.html.twig' %}
         {% endblock %}
 
-        {% block body %}
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success" role="alert">
-                    {{ message }}
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    {% block body %}
+
+                        {% for message in app.flashes('success') %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+                        {% include 'articles/articles.html.twig' %}
+                    {% endblock %}
+
+                    {% block sidebar %}
+                        {% include 'includes/sidebar.html.twig' %}
+                    {% endblock %}
                 </div>
-            {% endfor %}
-            {% include 'articles/articles.html.twig' %}
-        {% endblock %}
+            </div>
+        </div>
 
         {% block footer %}
             {% include 'includes/footer.html.twig' %}

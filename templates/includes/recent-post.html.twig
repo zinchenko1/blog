@@ -1,0 +1,8 @@
+{% for recentPost in recentPosts %}
+    <div class="post post-widget">
+        <a class="post-img" href="{{ path('post',  {'postSlug': recentPost.slug }) }}"><img src="/img/widget-2.jpg" alt="{{ recentPost.title }}"></a>
+        <div class="post-body">
+            <h3 class="post-title"><a href="{{ path('post',  {'postSlug': recentPost.slug }) }}">{{ recentPost.title }}</a></h3>
+        </div>
+    </div>
+{% endfor %}
