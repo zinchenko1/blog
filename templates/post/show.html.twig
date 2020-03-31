@@ -45,49 +45,24 @@
 
                 <div class="section-row">
                     <div class="section-title">
-                        <h2>3 Comments</h2>
+                        <h2>{{ post.comments|length }} Comments</h2>
                     </div>
                     <div class="post-comments">
 
-                        <div class="media">
-                            <div class="media-left">
-                                <img class="media-object" src="./img/avatar.png" alt="">
-                            </div>
-                            <div class="media-body">
-                                <div class="media-heading">
-                                    <h4>John Doe</h4>
-                                    <span class="time">March 27, 2018 at 8:00 am</span>
+                        {% for comment in post.comments %}
+                            <div class="media">
+                                <div class="media-left">
+                                    <img class="media-object" src="./img/avatar.png" alt="">
                                 </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            </div>
-                        </div>
-
-                        <div class="media">
-                            <div class="media-left">
-                                <img class="media-object" src="./img/avatar.png" alt="">
-                            </div>
-                            <div class="media-body">
-                                <div class="media-heading">
-                                    <h4>John Doe</h4>
-                                    <span class="time">March 27, 2018 at 8:00 am</span>
+                                <div class="media-body">
+                                    <div class="media-heading">
+                                        <h4>{{ comment.name }}</h4>
+                                        <span class="time">{{ comment.createdAt.date|localizeddate('long', 'short') }}</span>
+                                    </div>
+                                    <p>{{ comment.body }}</p>
                                 </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                             </div>
-                        </div>
-
-
-                        <div class="media">
-                            <div class="media-left">
-                                <img class="media-object" src="./img/avatar.png" alt="">
-                            </div>
-                            <div class="media-body">
-                                <div class="media-heading">
-                                    <h4>John Doe</h4>
-                                    <span class="time">March 27, 2018 at 8:00 am</span>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            </div>
-                        </div>
+                        {% endfor %}
 
                     </div>
                 </div>
