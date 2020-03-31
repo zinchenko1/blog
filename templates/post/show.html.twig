@@ -3,7 +3,6 @@
 {% block body %}
     <div class="col-md-12">
         <div class="row">
-            <h1></h1>
             <div class="col-md-6 col-md-offset-3">
                 <div class="post post-row blog-post">
                     <div class="blog-post-photo">
@@ -14,8 +13,10 @@
                         <div class="post-meta">
                             <a class="post-category cat-2" href="{{ path('category_posts',  {'categorySlug': post.category.slug }) }}">{{ post.category.title }}</a>
                             <span class="post-date">{{ post.createdAt.date|localizeddate('long', 'short') }}</span>
+
+                            {{ render(controller('App\\Controller\\PostController::postLikePlugin', { 'postSlug': post.slug })) }}
+
                         </div>
-{#                        <h3 class="post-title">{{ post.description }}</h3>#}
                         <p>{{ post.body }}</p>
                     </div>
                 </div>
