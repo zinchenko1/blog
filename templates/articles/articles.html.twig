@@ -10,6 +10,7 @@
             <div class="col-md-12">
                 <div class="post post-row">
                     <a class="post-img" href="{{ path('post',  {'postSlug': post.slug }) }}"><img src="/img/post-1.jpg" alt=""></a>
+                    {{ render(controller('App\\Controller\\PostController::postLikePlugin', { 'postSlug': post.slug })) }}
                     <div class="post-body">
                         <div class="post-meta">
                             <a class="post-category cat-4" href="{{ path('category_posts',  {'categorySlug': post.category.slug }) }}">{{ post.category.title }}</a>
@@ -26,6 +27,8 @@
             <div class="section-row pagination-block">
                 {{ knp_pagination_render(posts) }}
             </div>
+
+            {% include 'includes/sidebar.html.twig' %}
         </div>
     </div>
 </div>

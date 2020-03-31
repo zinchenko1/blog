@@ -3,65 +3,123 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\PostLike;
 use App\Entity\PostView;
+use App\Repository\PostLikeRepository;
+use App\Repository\PostViewRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 
 class PostController extends AbstractController
 {
+    private $registry;
+    private $postLikeRepository;
+    private $postViewRepository;
+
+    public function __construct(ManagerRegistry $registry, PostLikeRepository $postLikeRepository, PostViewRepository $postViewRepository)
+    {
+        $this->registry = $registry;
+        $this->postLikeRepository = $postLikeRepository;
+        $this->postViewRepository = $postViewRepository;
+    }
+
     /**
      * @Route("/post/{postSlug}", name="post", methods={"GET"})
+     * @param Post $post
+     * @param Request $request
      * @return Response
-     * @ParamConverter("postSlug", options={"mapping" : {"postSlug" : "slug"}})
+     * @ParamConverter("post", options={"mapping" : {"postSlug" : "slug"}})
      */
-    public function getPosts($postSlug, Request $request): Response
+    public function getPost(Post $post, Request $request): Response
     {
-        /**
-         * @var string|null $userAgent
-         */
         $userAgent = $request->headers->get('user-agent');
-
-        $repository = $this->getDoctrine()->getRepository(Post::class);
-        $post = $repository->findOneBy(['slug' => $postSlug, 'status' => Post::STATUS_ACTIVE]);
-
         $this->incrementView($post, $request->getClientIp(), $userAgent);
 
         return $this->render('post/show.html.twig', [
-            'post' => $post
+            'post' => $post,
+        ]);
+    }
+
+    /**
+     * @ParamConverter("post", options={"mapping" : {"postSlug" : "slug"}})
+     * @param Post $post
+     * @return Response
+     */
+    public function postLikePlugin(Post $post): Response
+    {
+        $countLikes = $this->postLikeRepository->getLikesCountByPost($post, PostLike::TYPE_LIKE);
+        $countDislikes = $this->postLikeRepository->getLikesCountByPost($post, PostLike::TYPE_DISLIKE);
+
+        return $this->render('includes/likes.html.twig', [
+            'postSlug' => $post->getSlug(),
+            'countDislikes' => $countDislikes,
+            'countLikes' => $countLikes,
         ]);
     }
 
     private function incrementView(Post $post, ?string $ip, ?string $userAgent): PostView
     {
-        $postView = $this
-            ->getDoctrine()
-            ->getRepository(PostView::class)
-            ->findByIpAndUserAgentAndPost($post, $ip, $userAgent)
-        ;
-
-        if ($postView === null) {
+        $postView = $this->postViewRepository->findByIpAndUserAgentAndPost($post, $ip, $userAgent);
+        if (null === $postView) {
             $postView = new PostView();
-
             $postView
                 ->setIp($ip)
                 ->setUserAgent($userAgent)
-                ->setPost($post)
-            ;
-
-            $em = $this
-                ->getDoctrine()
-                ->getManager()
-            ;
-
-            $em->persist($postView);
-            $em->flush();
+                ->setPost($post);
+            $this->registry->getManager()->persist($postView);
+            $this->registry->getManager()->flush();
         }
 
         return $postView;
+    }
+
+    /**
+     * @Route("/post/like/{postSlug}/{type}", name="post_like", methods={"GET"})
+     * @ParamConverter("post", options={"mapping" : {"postSlug" : "slug"}})
+     * @param Post $post
+     * @param int $type
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function like(Post $post, int $type, Request $request): RedirectResponse
+    {
+        $this->addLikeIfNotAlreadyLiked(
+            $post,
+            (bool) $type,
+            $request->getClientIp(),
+            $request->headers->get('user-agent')
+        );
+        $referer = $request->headers->get('referer');
+
+        if (!is_string($referer) || !$referer) {
+            return $this->redirectToRoute('post', ['postSlug' => $post->getSlug()]);
+        }
+
+        return $this->redirect($referer);
+    }
+
+    private function addLikeIfNotAlreadyLiked(Post $post, bool $type, string $ip, string $userAgent): PostLike
+    {
+        $postLike = $this->postLikeRepository->findPostLike($post, $ip, $userAgent);
+        if ($postLike === null) {
+            $postLike = new PostLike();
+            $postLike
+                ->setPost($post)
+                ->setIp($ip)
+                ->setUserAgent($userAgent)
+            ;
+            $this->registry->getManager()->persist($postLike);
+        }
+        $postLike->setType($type);
+        $this->registry->getManager()->flush();
+
+        return $postLike;
     }
 
     /**

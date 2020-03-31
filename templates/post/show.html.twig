@@ -14,8 +14,9 @@
                         <div class="post-meta">
                             <a class="post-category cat-2" href="{{ path('category_posts',  {'categorySlug': post.category.slug }) }}">{{ post.category.title }}</a>
                             <span class="post-date">{{ post.createdAt.date|localizeddate('long', 'short') }}</span>
+
+                            {{ render(controller('App\\Controller\\PostController::postLikePlugin', { 'postSlug': post.slug })) }}
                         </div>
-{#                        <h3 class="post-title">{{ post.description }}</h3>#}
                         <p>{{ post.body }}</p>
                     </div>
                 </div>
