@@ -1,0 +1,32 @@
+<div class="section-row">
+    <div class="section-title">
+        <h2>Leave a reply</h2>
+        <p>your email address will not be published. required fields are marked *</p>
+    </div>
+    {{ form_start(form, {
+        method: 'POST',
+        action: path('comment_new', {'postSlug': post.slug}),
+        'attr': {'class':'post-reply'} })
+    }}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span>Name *</span>
+                    {{ form_widget(form.name) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span>Email *</span>
+                    {{ form_widget(form.email) }}
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{ form_widget(form.body) }}
+                </div>
+                {{ form_widget(form.save, {'attr': {'class': 'primary-button'}}) }}
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>

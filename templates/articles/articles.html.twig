@@ -19,6 +19,7 @@
                         <h3 class="post-title"><a href="{{ path('post',  {'postSlug': post.slug }) }}">{{ post.title }}</a></h3>
                         <p class="post-elipsis">{{ post.description }}</p>
                     </div>
+                    <span class="post-views"><i class="glyphicon glyphicon-eye-open text-primary"></i>{{ post.postViews|length }}</span>
                 </div>
             </div>
         {% endfor %}

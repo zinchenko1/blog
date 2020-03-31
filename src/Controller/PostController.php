@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\PostLike;
 use App\Entity\PostView;
+use App\Form\CommentType;
 use App\Repository\PostLikeRepository;
 use App\Repository\PostViewRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -134,4 +136,46 @@ class PostController extends AbstractController
             'recentPosts' => $recentPosts
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @param Post $post
+     *
+     * @return Response
+     * @ParamConverter("post", options={"mapping" : {"postSlug" : "slug"}})
+     */
+    public function commentNew(Request $request, Post $post): Response
+    {
+        $comment = new Comment();
+        $post->addComment($comment);
+
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+//            $form->setPost()
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('post', [
+                'postSlug' => $post->getSlug(), ]);
+        }
+
+        return $this->render('layouts/comment-form.html.twig', [
+            'post' => $post,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function commentForm(Post $post): Response
+    {
+        $form = $this->createForm(CommentType::class);
+
+        return $this->render('layouts/comment-form.html.twig', [
+            'post' => $post,
+            'form' => $form->createView(),
+        ]);
+    }
+
 }

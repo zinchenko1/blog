@@ -20,3 +20,7 @@ gesdinet_jwt_refresh_token:
     path:       /api/token/refresh
     controller: gesdinet.jwtrefreshtoken::refresh
     methods:  POST
+
+comment_new:
+    path: /{_locale}/comment/{postSlug}/new
+    controller: App\Controller\PostController::commentNew

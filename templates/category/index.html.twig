@@ -5,26 +5,26 @@
 {% block body %}
     <div class="section col-md-8">
         <div class="container col-md-12">
-        <h1 class="text-center pt-4">All categories</h1>
-        {% if categories|length > 0 %}
-            <div class="posts list-block">
-                <div class="row">
-                    <ul>
-                        {% for category in categories %}
-                            <li>
-                                <a href="{{ path('category_posts', {categorySlug: category.slug}) }}">{{ category.title }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
+            <h1 class="text-center pt-4">All categories</h1>
+            {% if categories|length > 0 %}
+                <div class="posts list-block">
+                    <div class="row">
+                        <ul>
+                            {% for category in categories %}
+                                <li>
+                                    <a href="{{ path('category_posts', {categorySlug: category.slug}) }}">{{ category.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-                <div class="col-md-12">
-                    <div class="section-row pagination-block"></div>
-                </div>
-            </div>
+                    <div class="col-md-12">
+                        <div class="section-row pagination-block"></div>
+                    </div>
+            {% else %}
+                <p class="text-center">Categories is missing.</p>
+            {% endif %}
         </div>
-    {% else %}
-        <p class="text-center">Categories is missing.</p>
-    {% endif %}
+    </div>
 {% endblock %}
