@@ -65,6 +65,7 @@ App\Entity\Post:
 
 App\Entity\Comment:
     comment_{1..200}:
-        title: '<word()>'
+        name: '<word()>'
+        email (unique): '<email()>'
         body: '<text(512)>'
         post: '@post_<numberBetween(1,100)>'

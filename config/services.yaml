@@ -52,6 +52,12 @@ services:
         tags:
             - { name: knp_menu.menu, alias: navSidebar }
 
+    app.tags_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu_builder", TagsMenu]
+        tags:
+            - { name: knp_menu.menu, alias: navTags }
+
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
         tags:

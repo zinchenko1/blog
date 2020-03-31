@@ -1097,3 +1097,7 @@ RESPONSIVE
     padding: 10px;
     border-top: 1px solid #dcdee0;
 }
+
+.all-tags a {
+    background: #4BB92F!important;
+}

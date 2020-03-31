@@ -1,17 +1,17 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %} Category - {{ categoryPosts.title }} {% endblock %}
+{% block title %} Tag - {{ tagPosts.name }} {% endblock %}
 
 {% block body %}
     <div class="col-md-8">
         <div class="row">
             <div class="col-md-12">
                 <div class="section-title">
-                    <h2>Category - {{ categoryPosts.title }}</h2>
+                    <h2>Tag - {{ tagPosts.name }}</h2>
                 </div>
             </div>
 
-            {% for post in categoryPosts.posts %}
+            {% for post in tagPosts.posts %}
                 <div class="col-md-12">
                     <div class="post post-row">
                         <a class="post-img" href="{{ path('post',  {'postSlug': post.slug }) }}"><img src="/img/post-1.jpg" alt=""></a>

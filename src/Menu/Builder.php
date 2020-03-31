@@ -3,6 +3,7 @@
 namespace App\Menu;
 
 use App\Entity\Category;
+use App\Entity\Tag;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
@@ -87,6 +88,30 @@ class Builder  extends AbstractController
             ])
                 ->setAttributes(['class'=> $class]);
             $counter++;
+        }
+
+        return $menu;
+    }
+
+    /**
+     * @return ItemInterface
+     */
+    public function TagsMenu(): ItemInterface
+    {
+        $repository = $this->getDoctrine()->getRepository(Tag::class);
+        $tags = $repository->findBy([], ['id'=> "DESC"], 10);
+
+        $menu = $this->factory->createItem('root');
+        $menu->setChildrenAttribute('class', 'nav-tags-menu');
+
+        $menu->addChild('ALL TAGS', ['route' => 'tag_index'])->setAttributes(['class'=> 'all-tags']);;
+
+        foreach ($tags as $tag) {
+            $params = ['tagSlug' => $tag->getSlug()];
+            $menu->addChild($tag->getName(), [
+                'route' => 'tag_posts',
+                'routeParameters' => $params,
+            ]);
         }
 
         return $menu;
