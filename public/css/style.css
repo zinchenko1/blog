@@ -66,6 +66,9 @@ RESPONSIVE
      text-decoration: underline;
      outline: none;
 }
+ input, a, button {
+     outline: none;
+ }
  p {
      margin: 0px 0px 20px;
 }
@@ -417,13 +420,13 @@ RESPONSIVE
      visibility: visible;
 }
  .nav-btns .search-form .search-input {
-     height: 100%;
      width: 100%;
      border: none;
      background: #FFF;
-     padding: 0px;
+     padding: 22px;
      font-weight: 600;
 }
+
  .nav-btns .search-form .search-close {
      position: absolute;
      top: 50%;
@@ -1090,6 +1093,7 @@ RESPONSIVE
     margin-right: -4px;
 }
 
-/*.pagination span  a:not(last-child) {*/
-/*    margin-right: 5px;*/
-/*}*/
+.list-block li {
+    padding: 10px;
+    border-top: 1px solid #dcdee0;
+}

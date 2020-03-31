@@ -7,7 +7,7 @@
         <div class="container col-md-12">
             <h1 class="text-center pt-4">Search results for request - "{{ query }}" - {{ posts.getTotalItemCount }} <span class="post-count"></span></h1>
             {% if posts|length > 0 %}
-            <div class="posts">
+            <div class="posts list-block">
                 <div class="row">
                     <ul>
                         {% for post in posts %}
@@ -24,9 +24,9 @@
                     {{ knp_pagination_render(posts) }}
                 </div>
             </div>
-        </div>
-    </div>
     {% else %}
         <p class="text-center">Posts not found.</p>
     {% endif %}
+        </div>
+    </div>
 {% endblock %}

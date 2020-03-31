@@ -7,7 +7,7 @@
         <div class="container col-md-12">
         <h1 class="text-center pt-4">All categories</h1>
         {% if categories|length > 0 %}
-            <div class="posts">
+            <div class="posts list-block">
                 <div class="row">
                     <ul>
                         {% for category in categories %}
@@ -25,6 +25,6 @@
             </div>
         </div>
     {% else %}
-        <p class="text-center">Posts not found.</p>
+        <p class="text-center">Categories is missing.</p>
     {% endif %}
 {% endblock %}

@@ -86,7 +86,7 @@ class Builder  extends AbstractController
                 ]
             ])
                 ->setAttributes(['class'=> $class]);
-            $counter++;;
+            $counter++;
         }
 
         return $menu;

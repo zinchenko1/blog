@@ -63,4 +63,17 @@ class PostController extends AbstractController
 
         return $postView;
     }
+
+    /**
+     * @return Response
+     */
+    public function renderRecentPost(): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+        $recentPosts = $repository->findBy(['status' => Post::STATUS_ACTIVE], ['id' => 'DESC'], 3);
+
+        return $this->render('includes/recent-post.html.twig', [
+            'recentPosts' => $recentPosts
+        ]);
+    }
 }
