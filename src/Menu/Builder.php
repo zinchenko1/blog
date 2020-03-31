@@ -65,6 +65,24 @@ class Builder  extends AbstractController
     /**
      * @return ItemInterface
      */
+    public function FooterMenu(): ItemInterface
+    {
+        $categories = $this->registry->getManager()->getRepository(Category::class)
+            ->findBy(['isMain' => Category::MAIN]);
+        $menu = $this->factory->createItem('root');
+        $menu->setChildrenAttribute('class', 'footer-links');
+
+        foreach ($categories as $category) {
+            $params = ['categorySlug' => $category->getSlug()];
+            $menu->addChild($category->getTitle(), ['route' => 'category_posts', 'routeParameters' => $params]);
+        }
+
+        return $menu;
+    }
+
+    /**
+     * @return ItemInterface
+     */
     public function SidebarMenu(): ItemInterface
     {
         $counter = 1;

@@ -46,6 +46,12 @@ services:
         tags:
             - { name: knp_menu.menu, alias: navMobile }
 
+    app.footer_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu_builder", FooterMenu]
+        tags:
+            - { name: knp_menu.menu, alias: navFooter }
+
     app.sidebar_menu:
         class: Knp\Menu\MenuItem
         factory: ["@app.menu_builder", SidebarMenu]
