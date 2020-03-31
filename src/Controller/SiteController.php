@@ -32,11 +32,10 @@ class SiteController extends AbstractController
     /**
      * @Route("/", name="site_index")
      * @param Request $request
-     * @param RepositoryManagerInterface $repositoryManager
      *
      * @return Response
      */
-    public function index(Request $request, RepositoryManagerInterface $repositoryManager): Response
+    public function index(Request $request): Response
     {
         $repository = $this->getDoctrine()->getRepository(Post::class);
         $posts = $repository->findBy(['status' => Post::STATUS_ACTIVE]);
