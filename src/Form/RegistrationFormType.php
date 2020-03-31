@@ -22,7 +22,6 @@ class RegistrationFormType extends AbstractType
             ->add('first_name', TextType::class, ['label' => false, 'attr' => ['placeholder' => 'Enter your first name']])
             ->add('last_name', TextType::class, ['label' => false, 'attr' => ['placeholder' => 'Enter your last name']])
             ->add('email', EmailType::class, ['label' => false, 'attr' => ['placeholder' => 'Enter your email']])
-            ->add('status', TextType::class, ['label' => false, 'attr' => ['placeholder' => 'Enter your status']])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
