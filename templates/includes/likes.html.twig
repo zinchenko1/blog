@@ -1,0 +1,6 @@
+ <div class="likes pull-right">
+     <span class="like-count">{{ countLikes }}</span>
+     <a href="{{ path('post_like', {'postSlug': postSlug, 'type': 1}) }}"><i class="glyphicon glyphicon-thumbs-up text-success"></i></a>
+     <span class="dislike-count">{{ countDislikes }}</span>
+     <a href="{{ path('post_like', {'postSlug': postSlug, 'type': 0}) }}"><i class="glyphicon glyphicon-thumbs-down text-danger"></i></a>
+</div>
