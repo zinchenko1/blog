@@ -16,10 +16,23 @@
                         <div class="post-meta">
                             <a class="post-category cat-2" href="{{ path('category_posts',  {'categorySlug': post.category.slug }) }}">{{ post.category.title }}</a>
                             <span class="post-date">{{ post.createdAt.date|localizeddate('long', 'short') }}</span>
+                            <span class="post-views"><i class="glyphicon glyphicon-eye-open text-primary"></i>{{ post.postViews|length }}</span>
 
                             {{ render(controller('App\\Controller\\PostController::postLikePlugin', { 'postSlug': post.slug })) }}
                         </div>
                         <p>{{ post.body }}</p>
+                    </div>
+                </div>
+
+                <div class="section-row">
+                    <div class="aside-widget">
+                        <div class="tags-widget">
+                            <ul>
+                                {% for tagPost in post.tags %}
+                                    <li><a href="{{ path('tag_posts',  {'tagSlug': tagPost.slug }) }}">{{ tagPost.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -67,12 +80,8 @@
                     </div>
                 </div>
 
-                <div class="section-row">
-                    <div class="section-title">
-                        <h2>Leave a reply</h2>
-                        <p>your email address will not be published. required fields are marked *</p>
-                    </div>
-                </div>
+                {{ render(controller('App\\Controller\\PostController::commentForm', {'id': post.id})) }}
+
             </div>
 
         </div>

@@ -9,9 +9,9 @@
                 <h1 class="h3 mb-3 font-weight-normal">Login</h1>
                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail" placeholder="Enter your email" required autofocus>
                 <input type="password" name="password" id="inputPassword" placeholder="Enter your password" required>
-                {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <button type="submit">login</button>
                 <p class="message">Not registered? <a href="{{ path('app_register') }}">Create an account</a></p>
