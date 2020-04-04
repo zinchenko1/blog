@@ -1,14 +1,12 @@
 <footer id="footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="footer-widget">
-                    <div class="footer-logo">
-{#                        <a href="index.html" class="logo"><img src="./img/logo.png" alt=""></a>#}
-                    </div>
+                    <div class="footer-logo"></div>
                     <ul class="footer-nav">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Advertisement</a></li>
+                        <li><a href="javascript:void(0);">Privacy Policy</a></li>
+                        <li><a href="javascript:void(0);">Advertisement</a></li>
                     </ul>
                     <div class="footer-copyright">
                         <span>&copy; Copyright &copy;
@@ -27,7 +25,7 @@
                             <ul class="footer-links">
                                 <li><a href="{{ path('category_index') }}">Categories</a></li>
                                 <li><a href="{{ path('tag_index') }}">Tags</a></li>
-                                <li><a href="#">Contacts</a></li>
+                                <li><a href="{{ path }}">Contacts</a></li>
                             </ul>
                         </div>
                     </div>
@@ -42,17 +40,17 @@
                 </div>
             </div>
 
-            <div class="col-md-7">
+            <div class="col-md-4">
                 <div class="footer-widget">
                     <h3 class="footer-title">Join our Newsletter</h3>
                     <div class="footer-newsletter">
                         {{ render(controller('App\\Controller\\SubscriberController::subscriberForm')) }}
                     </div>
                     <ul class="footer-social">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        <li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="javascript:void(0);"><i class="fa fa-pinterest"></i></a></li>
                     </ul>
                 </div>
             </div>
