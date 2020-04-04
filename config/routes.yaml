@@ -24,3 +24,7 @@ gesdinet_jwt_refresh_token:
 comment_new:
     path: /{_locale}/comment/{postSlug}/new
     controller: App\Controller\PostController::commentNew
+
+contacts_new:
+    path: /{_locale}/contacts/new
+    controller: App\Controller\ContactController::contactNew

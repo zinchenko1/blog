@@ -3,6 +3,11 @@ security:
     encoders:
         App\Entity\User\User:
             algorithm: auto
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_AUTHOR
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         app_user_provider:

@@ -20,7 +20,7 @@ class AuthorController extends AbstractController
     {
 
         $repository = $this->getDoctrine()->getRepository(User::class);
-        $authors = $repository->findBy(['status' => User::STATUS_ACTIVE]);
+        $authors = $repository->findByRole(User::ROLES['author']);
 
         return $this->render('/author/authors.html.twig', [
             'authors' => $authors
