@@ -4,7 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-
+    router.request_context.host: '%env(HOSTNAME_URL)%'
+    router.request_context.scheme: 'http'
+    hostname_url: '%env(HOSTNAME_URL)%'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -27,3 +29,42 @@ services:
     # please note that last definitions always *replace* previous ones
     App\DataFixtures\Faker\AppFaker:
         tags: [ { name: nelmio_alice.faker.provider } ]
+
+    app.menu_builder:
+        class: App\Menu\Builder
+        arguments: ["@knp_menu.factory"]
+
+    app.main_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu_builder", MainMenu]
+        tags:
+            - { name: knp_menu.menu, alias: nav }
+
+    app.mobile_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu_builder", MobileMenu]
+        tags:
+            - { name: knp_menu.menu, alias: navMobile }
+
+    app.footer_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu_builder", FooterMenu]
+        tags:
+            - { name: knp_menu.menu, alias: navFooter }
+
+    app.sidebar_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu_builder", SidebarMenu]
+        tags:
+            - { name: knp_menu.menu, alias: navSidebar }
+
+    app.tags_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@app.menu_builder", TagsMenu]
+        tags:
+            - { name: knp_menu.menu, alias: navTags }
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extensions }

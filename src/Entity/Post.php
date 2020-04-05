@@ -8,6 +8,8 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Table;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
@@ -15,14 +17,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @Table(name="post",indexes={@Index(name="status", columns={"status"})})
  */
 class Post
 {
-    public const STATUS_DRAFT = 1;
-    public const STATUS_REVIEW = 2;
-    public const STATUS_ACTIVE = 3;
-    public const STATUS_CLOSED = 4;
-    public const STATUS_ARCHIVED = 5;
+    public const STATUS_DRAFT = 'draft';
+    public const STATUS_REVIEW = 'review';
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_CLOSED = 'closed';
+    public const STATUS_ARCHIVED = 'archived';
 
     public const STATUS_OPTIONS = [
         self::STATUS_DRAFT,
@@ -39,6 +42,8 @@ class Post
         'Closed' => self::STATUS_CLOSED,
         'Archived' => self::STATUS_ARCHIVED,
     ];
+
+    public const POPULAR_POSTS_COUNT = 5;
 
     /**
      * @ORM\Id()
@@ -71,7 +76,7 @@ class Post
     private $body;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="string", length=10)
      * @Groups({"post:show"})
      * @SWG\Property(description="The status of the post.")
      */
@@ -129,10 +134,17 @@ class Post
      */
     private $author;
 
+    /**
+     * @var ArrayCollection|PostView[]
+     * @ORM\OneToMany(targetEntity="App\Entity\PostView", mappedBy="post")
+     */
+    private $postViews;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->postViews = new ArrayCollection();
     }
 
     public function __toString()
@@ -181,12 +193,12 @@ class Post
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(int $status): self
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 
@@ -308,6 +320,34 @@ class Post
     public function setAuthor(?Author $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+    
+    public function getPostViews(): Collection
+    {
+        return $this->postViews;
+    }
+
+
+    public function addPostView(PostView $postView): self
+    {
+        if (!$this->postViews->contains($postView)) {
+            $this->postViews[] = $postView;
+            $postView->set($this);
+        }
+
+        return $this;
+    }
+    
+    public function removePostView(PostView $postView): self
+    {
+        if ($this->postViews->contains($postView)) {
+            $this->postViews->removeElement($postView);
+            if ($postView->getPost() === $this) {
+                $postView->setPost(null);
+            }
+        }
 
         return $this;
     }

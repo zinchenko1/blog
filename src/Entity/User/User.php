@@ -4,6 +4,8 @@ namespace App\Entity\User;
 
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Table;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Swagger\Annotations as SWG;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -12,6 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @Table(name="user",indexes={@Index(name="status", columns={"status"})})
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discriminator", type="string")
@@ -22,9 +25,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 abstract class User implements UserInterface
 {
-    public const STATUS_ACTIVE = 1;
-    public const STATUS_INACTIVE = 2;
-    public const STATUS_BLOCKED = 0;
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_INACTIVE = 'inactive';
+    public const STATUS_BLOCKED = 'blocked';
 
     public const STATUSES = [
         'Active' => self::STATUS_ACTIVE,
@@ -78,7 +81,7 @@ abstract class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="string", length=10)
      */
     private $status;
 
@@ -162,12 +165,12 @@ abstract class User implements UserInterface
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(int $status): self
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 

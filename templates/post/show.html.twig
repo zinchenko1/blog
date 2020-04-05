@@ -1,0 +1,90 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block body %}
+    <div class="col-md-8">
+        <div class="row">
+            <h1></h1>
+            <div class="col-md-12">
+                <div class="post post-row blog-post">
+                    <div class="blog-post-photo">
+                        <a class="post-img" href="javascript:void(0);"><img src="/img/post-1.jpg" alt=""></a>
+                    </div>
+                    <div class="post-body">
+                        <h1>{{ post.title }}</h1>
+                        <div class="post-meta">
+                            <a class="post-category cat-2" href="{{ path('category_posts',  {'categorySlug': post.category.slug }) }}">{{ post.category.title }}</a>
+                            <span class="post-date">{{ post.createdAt.date|localizeddate('long', 'short') }}</span>
+                            <span class="post-views"><i class="glyphicon glyphicon-eye-open text-primary"></i>{{ post.postViews|length }}</span>
+
+                            {{ render(controller('App\\Controller\\PostController::postLikePlugin', { 'postSlug': post.slug })) }}
+                        </div>
+                        <p>{{ post.body }}</p>
+                    </div>
+                </div>
+
+                <div class="section-row">
+                    <div class="aside-widget">
+                        <div class="tags-widget">
+                            <ul>
+                                {% for tagPost in post.tags %}
+                                    <li><a href="{{ path('tag_posts',  {'tagSlug': tagPost.slug }) }}">{{ tagPost.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-row">
+                    <div class="post-author">
+                        <div class="media">
+                            <div class="media-left">
+                                <img class="media-object" src="/img/author.webp" alt="">
+                            </div>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <h3>{{  post.author.firstName ~ ' ' ~ post.author.lastName }}</h3>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores cum doloremque ea eos excepturi ipsa iure minus, nam natus nisi possimus quis, quo, vel.</p>
+                                <ul class="author-social">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-row">
+                    <div class="section-title">
+                        <h2>{{ post.comments|length }} Comments</h2>
+                    </div>
+                    <div class="post-comments">
+
+                        {% for comment in post.comments %}
+                            <div class="media">
+                                <div class="media-left">
+                                    <img class="media-object" src="./img/avatar.png" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <div class="media-heading">
+                                        <h4>{{ comment.name }}</h4>
+                                        <span class="time">{{ comment.createdAt.date|localizeddate('long', 'short') }}</span>
+                                    </div>
+                                    <p>{{ comment.body }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                {{ render(controller('App\\Controller\\PostController::commentForm', {'id': post.id})) }}
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

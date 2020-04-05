@@ -1,0 +1,19 @@
+<div class="col-md-4">
+    <div class="aside-widget">
+        <div class="section-title">
+            <h2>Popular сategories <a class="btn btn-success" href="{{ path('category_index') }}">All</a></h2>
+        </div>
+        <div class="category-widget">
+            {{ knp_menu_render('navSidebar', {
+                'currentClass': 'active',
+                'allow_safe_labels': true
+            }) }}
+        </div>
+    </div>
+
+    <div class="aside-widget">
+        <div class="tags-widget">
+            {{ knp_menu_render('navTags') }}
+        </div>
+    </div>
+</div>

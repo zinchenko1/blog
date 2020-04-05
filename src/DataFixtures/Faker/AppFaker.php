@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures\Faker;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\User\Author;
 use App\Entity\User\Commentator;
@@ -37,13 +38,23 @@ class AppFaker
         return $this->encoder->encodePassword($user, $plainPassword);
     }
 
-    public function getUserStatusActive(): int
+    public function getUserStatusActive(): string
     {
         return User::STATUS_ACTIVE;
     }
 
-    public function getRandomPostStatus(): int
+    public function getRandomPostStatus(): string
     {
-        return array_rand(Post::STATUS_OPTIONS);
+        return Post::STATUS_OPTIONS[array_rand(Post::STATUS_OPTIONS)];
+    }
+
+    public function getCategoryIsMain(): bool
+    {
+        return Category::MAIN;
+    }
+
+    public function getCategoryIsBasic(): bool
+    {
+        return Category::BASIC;
     }
 }

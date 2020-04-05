@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html.twig' %}
+{% block title %}
+    Posts Search
+{% endblock %}
+{% block body %}
+    <div class="section col-md-8">
+        <div class="container col-md-12">
+            <h1 class="text-center pt-4">Search results for request - "{{ query }}" - {{ posts.getTotalItemCount }} <span class="post-count"></span></h1>
+            {% if posts|length > 0 %}
+                <div class="posts list-block">
+                    <div class="row">
+                        <ul>
+                            {% for post in posts %}
+                                <li>
+                                    <a href="{{ path('post', {postSlug: post.slug}) }}">{{ post.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="section-row pagination-block">
+                        {{ knp_pagination_render(posts) }}
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-center">Posts not found.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

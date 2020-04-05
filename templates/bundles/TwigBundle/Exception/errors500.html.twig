@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ status_code }} {% endblock %}
+
+{% block body %}
+    <div class="col-md-8">
+        <div class="row">
+            <h1>500 Error Page</h1>
+            <section class="error-container">
+                <span>5</span>
+                <span><span class="screen-reader-text">0</span></span>
+                <span>0</span>
+            </section>
+            <div class="link-container">
+                <a class="btn btn-info" href="{{ path('site_index') }}">Home</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

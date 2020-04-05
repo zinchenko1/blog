@@ -5,22 +5,31 @@ App\Entity\Tag:
 App\Entity\Category:
     category_1:
         title: 'Blogging'
+        isMain: '<getCategoryIsMain()>'
     category_2:
         title: 'Freelancing'
+        isMain: '<getCategoryIsMain()>'
     category_3:
         title: 'How to Succeed'
+        isMain: '<getCategoryIsMain()>'
     category_4:
         title: 'Income Reports'
+        isMain: '<getCategoryIsMain()>'
     category_5:
         title: 'Internet Marketing'
+        isMain: '<getCategoryIsBasic()>'
     category_6:
         title: 'Miscellaneous'
+        isMain: '<getCategoryIsBasic()>'
     category_7:
         title: 'Quitting Your Job'
+        isMain: '<getCategoryIsBasic()>'
     category_8:
         title: 'Search Engine Optimization'
+        isMain: '<getCategoryIsBasic()>'
     category_9:
         title: 'Social Media'
+        isMain: '<getCategoryIsBasic()>'
 
 App\Entity\User\User:
     user (template):
@@ -46,9 +55,9 @@ App\Entity\User\Author:
 
 App\Entity\Post:
     post_{1..100}:
-        title: '<word()>'
+        title: '<catchPhrase()>'
         description: '<text(256)>'
-        body: '<text(1024)>'
+        body: '<text(4096)>'
         status: '<getRandomPostStatus()>'
         category: '@category_<numberBetween(1,9)>'
         tags: '<numberBetween(1, 25)>x @tag_*'
@@ -56,6 +65,7 @@ App\Entity\Post:
 
 App\Entity\Comment:
     comment_{1..200}:
-        title: '<word()>'
+        name: '<word()>'
+        email (unique): '<email()>'
         body: '<text(512)>'
         post: '@post_<numberBetween(1,100)>'

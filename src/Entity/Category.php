@@ -10,12 +10,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
 class Category
 {
+    public const MAIN = 1;
+    public const BASIC = 0;
+
+    public const STATUSES = [
+        'Main' => self::MAIN,
+        'Basic' => self::BASIC,
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -53,6 +62,14 @@ class Category
      * @var DateTimeInterface
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @Assert\NotBlank()
+     * @Groups({"category:show"})
+     * @SWG\Property(description="Is main category.")
+     */
+    private $isMain;
 
     public function __construct()
     {
@@ -118,6 +135,18 @@ class Category
     public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getIsMain()
+    {
+        return $this->isMain;
+    }
+
+    public function setIsMain($isMain): self
+    {
+        $this->isMain = $isMain;
 
         return $this;
     }
