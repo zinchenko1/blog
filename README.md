@@ -43,3 +43,5 @@ Update search indexes
 Run tests
 
     bin/phpunit
+    
+    vendor/bin/behat
