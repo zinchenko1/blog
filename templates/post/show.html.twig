@@ -42,14 +42,20 @@
                                 <img class="media-object" src="/img/author.webp" alt="">
                             </div>
                             <div class="media-body">
-                                <div class="media-heading">
-                                    <h3>{{  post.author.firstName ~ ' ' ~ post.author.lastName }}</h3>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores cum doloremque ea eos excepturi ipsa iure minus, nam natus nisi possimus quis, quo, vel.</p>
-                                <ul class="author-social">
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                </ul>
+                                {% if (post.author) %}
+                                    <div class="media-heading">
+                                        <h3>{{  post.author.firstName ~ ' ' ~ post.author.lastName }}</h3>
+                                    </div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores cum doloremque ea eos excepturi ipsa iure minus, nam natus nisi possimus quis, quo, vel.</p>
+                                    <ul class="author-social">
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    </ul>
+                                {% else %}
+                                    <div class="media-heading block-admin-title">
+                                        <h3><a href="{{ path('contacts') }}">Admin</a></h3>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

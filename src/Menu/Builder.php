@@ -31,6 +31,7 @@ class Builder  extends AbstractController
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav-menu nav navbar-nav');
         $menu->addChild('Home', ['route' => 'site_index']);
+        $menu->addChild('Authors', ['route' => 'authors_index']);
         foreach ($categories as $category) {
             $class = implode('-', ['cat', $counter]);
             $params = ['categorySlug' => $category->getSlug()];
