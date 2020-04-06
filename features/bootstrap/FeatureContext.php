@@ -1,8 +1,14 @@
 <?php
 
+use App\Entity\User\User;
 use Behat\Behat\Context\Context;
+use Behat\Behat\Context\Environment\InitializedContextEnvironment;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Behat\Tester\Exception\PendingException;
+use Behatch\Context\RestContext;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -13,19 +19,17 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 class FeatureContext implements Context
 {
-    /**
-     * @var KernelInterface
-     */
     private $kernel;
-
-    /**
-     * @var Response|null
-     */
+    private $registry;
+    private $jwtManager;
+    private $restContext;
     private $response;
 
-    public function __construct(KernelInterface $kernel)
+    public function __construct(KernelInterface $kernel, ManagerRegistry $registry, JWTTokenManagerInterface $jwtManager)
     {
         $this->kernel = $kernel;
+        $this->registry = $registry;
+        $this->jwtManager = $jwtManager;
     }
 
     /**
@@ -44,5 +48,22 @@ class FeatureContext implements Context
         if ($this->response === null) {
             throw new \RuntimeException('No response received');
         }
+    }
+
+    public function login(BeforeScenarioScope $scope)
+    {
+        $user = $this->findUser('admin');
+        $token = $this->jwtManager->create($user);
+        /** @var InitializedContextEnvironment $environment */
+        $environment = $scope->getEnvironment();
+        $this->restContext = $environment->getContext(RestContext::class);
+        $this->restContext->iAddHeaderEqualTo('Authorization', "Bearer $token");
+    }
+
+    private function findUser($username)
+    {
+        $repository = $this->registry->getManager()->getRepository(User::class);
+
+        return $repository->findBy(['username' => $username]);
     }
 }

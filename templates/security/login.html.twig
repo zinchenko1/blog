@@ -13,7 +13,7 @@
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <button type="submit">login</button>
+                <button name="login" type="submit">login</button>
                 <p class="message">Not registered? <a href="{{ path('app_register') }}">Create an account</a></p>
             </form>
         </div>
