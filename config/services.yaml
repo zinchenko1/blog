@@ -68,3 +68,9 @@ services:
         class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extensions }
+
+    App\Command\TestFixturesLoaderCommand:
+        calls:
+        - {method: setKernel, arguments: ['@kernel']}
+        tags:
+        - { name: console.command }

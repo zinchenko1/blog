@@ -9,6 +9,10 @@ load fixtures
 
     bin/console hautelook:fixtures:load
     
+load fixtures (test db)
+
+    bin/console t:f:l -e test -f
+    
 Generate the SSH keys (LexikJWTAuthenticationBundle)
 
     https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#prerequisites
@@ -36,3 +40,8 @@ Update search indexes
 
      bin/console fos:elastica:populate
 
+Run tests
+
+    bin/phpunit
+    
+    vendor/bin/behat
