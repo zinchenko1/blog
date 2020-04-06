@@ -1,0 +1,37 @@
+
+<div class="section-row">
+    <h3>Send a message</h3>
+    {{ form_start(form, {
+            method: 'POST',
+            action: path('contacts_new')
+        })
+    }}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span>Name *</span>
+                    {{ form_widget(form.name) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span>Email *</span>
+                    {{ form_widget(form.email) }}
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <span>Subject *</span>
+                    {{ form_widget(form.subject) }}
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <span>Message*</span>
+                    {{ form_widget(form.body) }}
+                </div>
+                {{ form_widget(form.save, {'attr': {'class': 'primary-button'}}) }}
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>

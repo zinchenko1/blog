@@ -66,3 +66,19 @@ easy_admin:
                     - 'lastName'
                     - 'email'
                     - { property: 'status', type: 'choice', type_options: { choices: !php/const App\Entity\User\User::STATUSES }}
+        Contacts:
+            class: App\Entity\Contact
+            label: 'Contacts'
+            form:
+                fields:
+                    - 'name'
+                    - 'email'
+                    - 'subject'
+                    - 'body'
+            list:
+                title: "Contacts"
+                actions: ['show', '-edit', 'delete']
+            show:
+                actions: ['-show', '-edit', '-delete']
+            search:
+                sort: ['createdAt', 'ASC']
