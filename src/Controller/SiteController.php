@@ -6,6 +6,7 @@ use App\DTO\SearchDTO;
 use App\Entity\Post;
 use App\Repository\PostRepository;
 use FOS\ElasticaBundle\Manager\RepositoryManagerInterface;
+use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +36,7 @@ class SiteController extends AbstractController
      *
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request, Breadcrumbs $breadcrumbs): Response
     {
         $repository = $this->getDoctrine()->getRepository(Post::class);
         $posts = $repository->findBy(['status' => Post::STATUS_ACTIVE]);

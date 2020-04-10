@@ -2,15 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Contact;
-use App\Entity\Post;
-use App\Entity\PostLike;
-use App\Entity\PostView;
-use App\Form\CommentType;
 use App\Form\ContactType;
-use App\Repository\PostLikeRepository;
-use App\Repository\PostViewRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
 
 class ContactController extends AbstractController
@@ -28,8 +22,11 @@ class ContactController extends AbstractController
      *
      * @return Response
      */
-    public function contacts(Request $request): Response
+    public function contacts(Request $request, Breadcrumbs $breadcrumbs): Response
     {
+        $breadcrumbs->prependRouteItem("Home", "site_index");
+        $breadcrumbs->addItem("Contacts");
+
         return $this->render('/contacts/contacts.html.twig');
     }
 

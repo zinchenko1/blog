@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
 
 class PostController extends AbstractController
@@ -38,10 +39,16 @@ class PostController extends AbstractController
      * @return Response
      * @ParamConverter("post", options={"mapping" : {"postSlug" : "slug"}})
      */
-    public function getPost(Post $post, Request $request): Response
+    public function getPost(Post $post, Request $request, Breadcrumbs $breadcrumbs): Response
     {
         $userAgent = $request->headers->get('user-agent');
         $this->incrementView($post, $request->getClientIp(), $userAgent);
+
+        $category = $post->getCategory();
+
+        $breadcrumbs->prependRouteItem("Home", "site_index");
+        $breadcrumbs->addRouteItem($category->getTitle(), "category_posts", ['categorySlug' => $category->getSlug()]);
+        $breadcrumbs->addItem($post->getTitle());
 
         return $this->render('post/show.html.twig', [
             'post' => $post,

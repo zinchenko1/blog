@@ -24,9 +24,13 @@
 
         <div class="section">
             <div class="container">
+
+                {% block breadcrumbs %}
+                    {{ wo_render_breadcrumbs() }}
+                {% endblock %}
+
                 <div class="row">
                     {% block body %}
-
                         {% for message in app.flashes('success') %}
                             <div class="alert alert-success" role="alert">
                                 {{ message }}
