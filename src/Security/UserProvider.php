@@ -63,8 +63,9 @@ class UserProvider extends EntityUserProvider implements AccountConnectorInterfa
 
         $property = $this->getProperty($response);
         $username = $response->getUsername();
+        $userEmail = $response->getEmail();
 
-        if (null !== $previousUser = $this->registry->getRepository(User::class)->findOneBy(array($property => $username))) {
+        if (null !== $previousUser = $this->em->getRepository(User::class)->findOneBy(['email' => $userEmail])) {
             // 'disconnect' previously connected users
             $this->disconnect($previousUser, $response);
         }

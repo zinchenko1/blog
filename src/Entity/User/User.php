@@ -81,16 +81,6 @@ abstract class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $facebookID = [];
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $facebookAccessToken = [];
-
-    /**
      * @ORM\Column(type="string", length=10)
      */
     private $status;
@@ -101,6 +91,16 @@ abstract class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     protected $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $facebookID;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $facebookAccessToken;
 
     public function __construct()
     {
@@ -232,35 +232,27 @@ abstract class User implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
-    /**
-     * @return string
-     */
-    public function getFacebookID()
+    public function getFacebookID(): ?string
     {
         return $this->facebookID;
     }
 
-    /**
-     * @param string $facebookID
-     */
-    public function setFacebookID($facebookID)
+    public function setFacebookID(?string $facebookID): self
     {
         $this->facebookID = $facebookID;
+
+        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getFacebookAccessToken()
+    public function getFacebookAccessToken(): ?string
     {
         return $this->facebookAccessToken;
     }
 
-    /**
-     * @param string $facebookAccessToken
-     */
-    public function setFacebookAccessToken($facebookAccessToken)
+    public function setFacebookAccessToken(?string $facebookAccessToken): self
     {
         $this->facebookAccessToken = $facebookAccessToken;
+
+        return $this;
     }
 }
