@@ -68,3 +68,10 @@ services:
         class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extensions }
+
+    my.oauth_aware.user_provider.service:
+        class: App\Security\UserProvider
+        arguments:
+            - '@doctrine'
+            - 'App\Entity\User'
+            - {facebook: facebookID}

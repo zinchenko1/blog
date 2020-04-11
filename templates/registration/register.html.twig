@@ -15,6 +15,12 @@
                 <button type="submit">Register</button>
                 <p class="message">Already registered? <a href="{{ path('app_login') }}">Sign In</a></p>
             {{ form_end(registrationForm) }}
+
+            <a class="btn btn-lg btn-social btn-facebook" href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}">
+                <i class="fa fa-facebook fa-fw"></i>
+                Register with Facebook
+            </a>
+
         </div>
     </div>
 

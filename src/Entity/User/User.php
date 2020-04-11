@@ -81,6 +81,16 @@ abstract class User implements UserInterface
     private $password;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $facebookID = [];
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $facebookAccessToken = [];
+
+    /**
      * @ORM\Column(type="string", length=10)
      */
     private $status;
@@ -220,5 +230,37 @@ abstract class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookID()
+    {
+        return $this->facebookID;
+    }
+
+    /**
+     * @param string $facebookID
+     */
+    public function setFacebookID($facebookID)
+    {
+        $this->facebookID = $facebookID;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookAccessToken()
+    {
+        return $this->facebookAccessToken;
+    }
+
+    /**
+     * @param string $facebookAccessToken
+     */
+    public function setFacebookAccessToken($facebookAccessToken)
+    {
+        $this->facebookAccessToken = $facebookAccessToken;
     }
 }

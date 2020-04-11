@@ -3,7 +3,6 @@ security:
     encoders:
         App\Entity\User\User:
             algorithm: auto
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         app_user_provider:
             entity:
@@ -50,6 +49,15 @@ security:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
+            oauth:
+                resource_owners:
+                    facebook:           "/login/check-facebook"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+
+                oauth_user_provider:
+                    service: my.oauth_aware.user_provider.service
 
     access_control:
         - { path: ^/admin, roles: ROLE_USER }
@@ -58,3 +66,4 @@ security:
         - { path: ^/api/, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/login, allow_if: "not has_role('ROLE_USER')" }
         - { path: ^/register, allow_if: "not has_role('ROLE_USER')" }
+        - { path: ^/connect, roles: IS_AUTHENTICATED_ANONYMOUSLY }
