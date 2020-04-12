@@ -69,6 +69,14 @@ services:
         tags:
             - { name: twig.extensions }
 
+
+    my.oauth_aware.user_provider.service:
+        class: App\Security\UserProvider
+        arguments:
+            - '@doctrine'
+            - 'App\Entity\User'
+            - {facebook: facebookID}
+
     App\Command\TestFixturesLoaderCommand:
         calls:
         - {method: setKernel, arguments: ['@kernel']}

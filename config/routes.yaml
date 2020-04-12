@@ -25,6 +25,22 @@ comment_new:
     path: /{_locale}/comment/{postSlug}/new
     controller: App\Controller\PostController::commentNew
 
+facebook_login:
+    path: /login/check-facebook
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /connect
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login
+
 contacts_new:
     path: /{_locale}/contacts/new
     controller: App\Controller\ContactController::contactNew
+
