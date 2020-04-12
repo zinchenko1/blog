@@ -252,6 +252,9 @@
             "config/packages/lexik_jwt_authentication.yaml"
         ]
     },
+    "mhujer/breadcrumbs-bundle": {
+        "version": "1.5.2"
+    },
     "monolog/monolog": {
         "version": "1.25.3"
     },

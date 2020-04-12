@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Query;
 use Symfony\Component\Routing\Annotation\Route;
+use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
 class AuthorController extends AbstractController
 {
@@ -16,11 +17,13 @@ class AuthorController extends AbstractController
      * @Route("/authors", name="authors_index")
      * @return Response
      */
-    public function getAuthors(): Response
+    public function getAuthors(Breadcrumbs $breadcrumbs): Response
     {
-
         $repository = $this->getDoctrine()->getRepository(User::class);
         $authors = $repository->findByRole(User::ROLES['author']);
+
+        $breadcrumbs->prependRouteItem("Home", "site_index");
+        $breadcrumbs->addItem("Authors");
 
         return $this->render('/author/authors.html.twig', [
             'authors' => $authors
@@ -32,10 +35,14 @@ class AuthorController extends AbstractController
      * @return Response
      * @ParamConverter("author", options={"mapping" : {"authorId" : "slug"}})
      */
-    public function getAuthorPosts($authorId): Response
+    public function getAuthorPosts($authorId, Breadcrumbs $breadcrumbs): Response
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
         $author = $repository->findOneBy(['id' => $authorId, 'status' => User::STATUS_ACTIVE]);
+
+        $breadcrumbs->prependRouteItem("Home", "site_index");
+        $breadcrumbs->addRouteItem("Authors", "authors_index");
+        $breadcrumbs->addItem($author->getFirstName() . " " . $author->getLastName());
 
         return $this->render('/author/show-post.html.twig', [
             'author' => $author,
