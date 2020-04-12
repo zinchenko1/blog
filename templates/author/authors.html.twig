@@ -1,0 +1,36 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %} Authors {% endblock %}
+
+{% block body %}
+    <div class="section col-md-8">
+        <div class="container col-md-12">
+            <h1 class="text-center pt-4">Authors</h1>
+            {% for author in authors %}
+                <div class="section-row">
+                    <div class="post-author">
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="{{ path('author_posts', {authorId: author.id}) }}" target="_blank"><img class="media-object" src="/img/author.webp" alt=""></a>
+                            </div>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <h3><a href="{{ path('author_posts', {authorId: author.id}) }}" target="_blank">{{  author.firstName ~ ' ' ~ author.lastName }}</a></h3>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores cum doloremque ea eos excepturi ipsa iure minus, nam natus nisi possimus quis, quo, vel.</p>
+                                <ul class="author-social">
+                                    <li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+                <div class="col-md-12">
+                    <div class="section-row pagination-block"></div>
+                </div>
+        </div>
+    </div>
+{% endblock %}

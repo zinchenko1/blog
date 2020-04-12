@@ -1,0 +1,57 @@
+App\Entity\Tag:
+    tag_1:
+        name: 'Tag 1'
+    tag_2:
+        name: 'Tag 2'
+
+App\Entity\Category:
+    category_1:
+        title: 'Category 1'
+        isMain: '<getCategoryIsMain()>'
+    category_2:
+        title: 'Category 2'
+        isMain: '<getCategoryIsMain()>'
+
+App\Entity\User\User:
+    user (template):
+        firstName: '<firstName()>'
+        lastName: '<lastName()>'
+        status: '<getUserStatusActive()>'
+
+App\Entity\User\Admin:
+    admin_1 (extends user):
+        email: 'admin@example.com'
+        password: "<encodePassword(@self, 'test')>"
+
+App\Entity\User\Author:
+    author_1 (extends user):
+        email: 'author@example.com'
+        password: "<encodePassword(@self, 'test')>"
+    author_2 (extends user):
+        email: 'author2@example.com'
+        password: "<encodePassword(@self, 'test')>"
+
+App\Entity\Post:
+    post_1:
+        title: 'Test Post'
+        description: '<text(256)>'
+        body: '<text(4096)>'
+        status: 'active'
+        category: '@category_<numberBetween(1,2)>'
+        tags: '<numberBetween(1, 2)>x @tag_*'
+        author: '@author_1'
+    post_2:
+        title: 'Test Post 2'
+        description: '<text(256)>'
+        body: '<text(4096)>'
+        status: 'active'
+        category: '@category_<numberBetween(1,2)>'
+        tags: '<numberBetween(1, 2)>x @tag_*'
+        author: '@author_2'
+
+App\Entity\Comment:
+    comment_{1..10}:
+        name: '<word()>'
+        email (unique): '<email()>'
+        body: '<text(512)>'
+        post: '@post_<numberBetween(1,2)>'

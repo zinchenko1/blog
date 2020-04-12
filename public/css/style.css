@@ -1290,4 +1290,7 @@ a.more-link {
     padding: 7px;
     font-size: 1.6em;
     text-align: center;
+
+.block-admin-title {
+    margin-top: 8%;
 }

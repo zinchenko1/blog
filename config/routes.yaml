@@ -39,3 +39,8 @@ hwi_oauth_connect:
 hwi_oauth_login:
     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
     prefix:   /login
+
+contacts_new:
+    path: /{_locale}/contacts/new
+    controller: App\Controller\ContactController::contactNew
+
