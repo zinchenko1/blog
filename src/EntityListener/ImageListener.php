@@ -6,38 +6,22 @@ use App\Entity\Image;
 use App\Service\FileUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Symfony\Component\Asset\Package;
 
 class ImageListener
 {
-    /**
-     * @var Package
-     */
-    private $assetsHelper;
-
-    /**
-     * @var FileUploader
-     */
     private $fileUploader;
-
-    private $imageUploadPath;
-
     private $image;
 
-    public function __construct($assetsHelper, FileUploader $fileUploader, $imageUploadPath)
+    public function __construct(FileUploader $fileUploader)
     {
-        $this->assetsHelper = $assetsHelper;
         $this->fileUploader = $fileUploader;
-        $this->imageUploadPath = $imageUploadPath;
     }
 
     public function postLoad(Image $image, LifecycleEventArgs $args): void
     {
-        $image->setWebView(
-            $this->assetsHelper->getUrl("/upload/img/" . $image->getFilename())
-        );
+        $image->setWebView($image->getFilename());
 
-        if (!$image->getTempFilename()) {
+        if(($_REQUEST['action'] === 'edit') && !$image->getTempFilename()) {
             $image->setTempFilename($image->getFilename());
 
             // Enable update events to be triggered
@@ -48,7 +32,7 @@ class ImageListener
     public function prePersist(Image $image, LifecycleEventArgs $args)
     {
         $this->image = $args->getEntity();
-        $filename = $this->fileUploader->upload($this->image->getFile(), $this->imageUploadPath);
+        $filename = $this->fileUploader->upload($this->image->getFile());
         $this->image->setFilename($filename);
     }
 
@@ -56,15 +40,15 @@ class ImageListener
     {
         $this->image = $args->getEntity();
 
-        $filename = $this->fileUploader->upload($this->image->getFile(), $this->imageUploadPath);
+        $filename = $this->fileUploader->upload($this->image->getFile());
 
         $this->image->setFilename($filename);
-        unlink($this->imageUploadPath . "/" . $this->image->getTempFilename());
+        $this->fileUploader->remove($this->image->getTempFilename());
     }
 
     public function preRemove(Image $image, LifecycleEventArgs $args)
     {
         $this->image = $args->getEntity();
-        unlink($this->imageUploadPath . "/" . $this->image->getTempFilename());
+        $this->fileUploader->remove($this->image->getFileName());
     }
 }
