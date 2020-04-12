@@ -7,11 +7,17 @@ parameters:
     router.request_context.host: '%env(HOSTNAME_URL)%'
     router.request_context.scheme: 'http'
     hostname_url: '%env(HOSTNAME_URL)%'
+    server_upload_default_path: '%kernel.project_dir%/public/upload'
+    server_upload_image_path: '%kernel.project_dir%/public/upload/img'
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $uploadPath: '%server_upload_default_path%'
+            $imageUploadPath: '%server_upload_image_path%'
+            $assetsHelper: '@assets.packages'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -74,3 +80,12 @@ services:
         - {method: setKernel, arguments: ['@kernel']}
         tags:
         - { name: console.command }
+
+    app.file_uploader:
+        class: App\Service\FileUploader
+
+    image_listener:
+        class: App\EntityListener\ImageListener
+        tags: [{ name: doctrine.orm.entity_listener, lazy: true }]
+
+    App\Service\FileUploader: '@app.file_uploader'

@@ -154,6 +154,9 @@
     "fig/link-util": {
         "version": "1.1.0"
     },
+    "firebase/php-jwt": {
+        "version": "v5.2.0"
+    },
     "friends-of-behat/mink-extension": {
         "version": "2.3.1"
     },
@@ -177,6 +180,27 @@
     },
     "gesdinet/jwt-refresh-token-bundle": {
         "version": "v0.9.1"
+    },
+    "google/auth": {
+        "version": "v1.8.0"
+    },
+    "google/cloud-core": {
+        "version": "v1.36.1"
+    },
+    "google/cloud-storage": {
+        "version": "v1.20.1"
+    },
+    "google/crc32": {
+        "version": "v0.1.0"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "6.5.2"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.6.1"
     },
     "guzzlehttp/ringphp": {
         "version": "1.1.1"
@@ -305,17 +329,26 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.1.2"
     },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
+    },
     "ramsey/uuid": {
         "version": "3.9.3"
     },
     "react/promise": {
         "version": "v2.7.1"
+    },
+    "rize/uri-template": {
+        "version": "0.3.2"
     },
     "ruflin/elastica": {
         "version": "6.1.1"
