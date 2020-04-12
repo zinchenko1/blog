@@ -34,6 +34,7 @@
     },
     "clue/stream-filter": {
         "version": "v1.4.1"
+    },
     "behatch/contexts": {
         "version": "3.3.0"
     },

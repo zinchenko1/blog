@@ -7,7 +7,7 @@ security:
         ROLE_ADMIN: ROLE_AUTHOR
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
-providers:
+    providers:
         app_user_provider:
             entity:
                 class: App\Entity\User\User
