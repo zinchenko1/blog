@@ -4,8 +4,8 @@ security:
         App\Entity\User\User:
             algorithm: auto
     role_hierarchy:
-        ROLE_ADMIN: ROLE_AUTHOR
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_AUTHOR: ROLE_AUTHOR
+        ROLE_ADMIN: ROLE_ADMIN
 
     providers:
         app_user_provider:

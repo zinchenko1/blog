@@ -8,6 +8,7 @@ easy_admin:
         max_results: 10
     entities:
         Post:
+            controller: App\Controller\Admin\PostController
             class: App\Entity\Post
             label: 'Post'
             form:
