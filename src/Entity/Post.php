@@ -323,7 +323,7 @@ class Post
 
         return $this;
     }
-    
+
     public function getPostViews(): Collection
     {
         return $this->postViews;
@@ -339,7 +339,7 @@ class Post
 
         return $this;
     }
-    
+
     public function removePostView(PostView $postView): self
     {
         if ($this->postViews->contains($postView)) {
