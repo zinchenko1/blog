@@ -1262,6 +1262,35 @@ a.more-link {
     letter-spacing: 1px;
 }
 
+.btn-facebook {
+    color: #fff;
+    background-color: #3b5998;
+    margin-top: 10px;
+}
+
+.btn-social {
+    position: relative;
+    padding-left: 44px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn-social:hover {
+    color: #eee;
+}
+
+.btn-social :first-child {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    padding: 7px;
+    font-size: 1.6em;
+    text-align: center;
+
 .block-admin-title {
     margin-top: 8%;
 }

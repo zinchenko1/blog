@@ -13,9 +13,14 @@
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <button type="submit">login</button>
+                <button name="login" type="submit">login</button>
                 <p class="message">Not registered? <a href="{{ path('app_register') }}">Create an account</a></p>
             </form>
+
+            <a class="btn btn-lg btn-social btn-facebook" href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}">
+                <i class="fa fa-facebook fa-fw"></i>
+                Login with Facebook
+            </a>
         </div>
     </div>
 

@@ -25,4 +25,6 @@ return [
     FOS\ElasticaBundle\FOSElasticaBundle::class => ['all' => true],
     Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
     WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle::class => ['all' => true],
+    HWI\Bundle\OAuthBundle\HWIOAuthBundle::class => ['all' => true],
+    Http\HttplugBundle\HttplugBundle::class => ['all' => true],
 ];

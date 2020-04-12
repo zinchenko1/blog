@@ -3,6 +3,8 @@
 namespace App\Controller\Api;
 
 use App\Entity\Post;
+use App\Entity\PostLike;
+use App\Repository\PostLikeRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,20 +16,19 @@ use Swagger\Annotations as SWG;
 
 class PostController extends ApiController
 {
-    /**
-     * @var ManagerRegistry
-     */
     private $registry;
+    private $postLikeRepository;
 
     /**
      * PostController constructor.
      * @param ManagerRegistry $registry
      * @param SerializerInterface $serializer
      */
-    public function __construct(ManagerRegistry $registry, SerializerInterface $serializer)
+    public function __construct(ManagerRegistry $registry, SerializerInterface $serializer, PostLikeRepository $postLikeRepository)
     {
         parent::__construct($serializer);
         $this->registry = $registry;
+        $this->postLikeRepository = $postLikeRepository;
     }
 
     /**
@@ -148,5 +149,34 @@ class PostController extends ApiController
         }
 
         return $this->createApiResponse(['data' => $tags], ['groups' => ['tag:show']]);
+    }
+
+    /**
+     * Return Likes and dislikes.
+     *
+     * @Route("/{post}/rating", name="api_post_rating", methods={"GET"})
+     * @SWG\Response(
+     *     response=200,
+     *     description="Success"
+     * ),
+     * @SWG\Tag(name="posts")
+     * @Security(name="Bearer")
+     * @param Post $post
+     * @throws HttpException
+     * @return Response
+     * @ParamConverter("post", class="App:Post")
+     */
+    public function getRating(Post $post): Response
+    {
+        $countLikes = $this->postLikeRepository->getLikesCountByPost($post, PostLike::TYPE_LIKE);
+        $countDislikes = $this->postLikeRepository->getLikesCountByPost($post, PostLike::TYPE_DISLIKE);
+        if (!$countLikes || !$countDislikes) {
+            throw new HttpException(400, 'Likes or dislikes  not found');
+        }
+
+        return $this->createApiResponse(['data' => [
+            'likes' => $countLikes,
+            'dislikes' => $countDislikes,
+        ]]);
     }
 }
