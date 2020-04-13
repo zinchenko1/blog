@@ -19,7 +19,7 @@
                         <div class="post-body">
                             <div class="post-meta">
                                 <a class="post-category cat-4" href="{{ path('category_posts',  {'categorySlug': post.category.slug }) }}">{{ post.category.title }}</a>
-                                <span class="post-date">{{ post.createdAt.date|localizeddate('long', 'short') }}</span>c
+                                <span class="post-date">{{ post.createdAt.date|localizeddate('long', 'short') }}</span>
                             </div>
                             <h3 class="post-title"><a href="{{ path('post',  {'postSlug': post.slug }) }}">{{ post.title }}</a></h3>
                             <p class="post-elipsis">{{ post.description }}</p>

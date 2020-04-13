@@ -23,6 +23,10 @@ Links
     http://blog.zraiev.top/api-doc - API doc
     http://blog.zraiev.top/admin - admin
     
+    https://www.blog.zinchenko.tech/
+    https://www.blog.zinchenko.tech/api-doc
+    https://www.blog.zinchenko.tech/admin
+    
 Admin user
 
     admin@example.com
