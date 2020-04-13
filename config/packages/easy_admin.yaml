@@ -46,6 +46,7 @@ easy_admin:
             search:
                 sort: ['createdAt', 'ASC']
         Author:
+            controller: App\Controller\Admin\AuthorController
             class: App\Entity\User\Author
             disabled_actions: []
             list:
@@ -60,8 +61,10 @@ easy_admin:
             class: App\Entity\User\Admin
             disabled_actions: []
             list:
+                item_permission: 'ROLE_ADMIN'
                 title: "Admin"
             form:
+                item_permission: 'ROLE_ADMIN'
                 fields:
                     - 'firstName'
                     - 'lastName'
